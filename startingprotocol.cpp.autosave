@@ -5069,26 +5069,45 @@ void StartingProtocol::on_pushButton_update_2_clicked()
 //                ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
             }
             //------------------------25m----------------------------
+        if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ч")){
+            for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount();j++){
+                if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_50Men->item(0,j-1)->text()&&
+                        ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_50Men->item(0,j)->text())
+                {
+                    ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                    break;
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_50Men->item(0,j-1)->text()){
+                    ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                    break;
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_50Men->item(0,7)->text() ){
+                    ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                    break;
+                }
+                else continue;
+            }
+        }
             else {
-//                if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ч")){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,j-1)->text()&&
-//                                ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j-1)->text()){
-//                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,7)->text() ){
-//                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
+                if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ч")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                                }
+                }
         }
 //                else if(ui->comboBox_category->currentText()=="100,В.ст.,Ч"){
 //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount();j++){

@@ -1786,7 +1786,12 @@
      </item>
      <item>
       <property name="text">
-       <string>Змішані</string>
+       <string>Зм(Ч)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Зм(Ж)</string>
       </property>
      </item>
     </widget>
