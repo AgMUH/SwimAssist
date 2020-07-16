@@ -1786,12 +1786,12 @@
      </item>
      <item>
       <property name="text">
-       <string>Зм(Ч)</string>
+       <string>ЗмЧ</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>Зм(Ж)</string>
+       <string>ЗмЖ</string>
       </property>
      </item>
     </widget>

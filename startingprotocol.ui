@@ -493,7 +493,12 @@
       </item>
       <item>
        <property name="text">
-        <string>Змішані</string>
+        <string>ЗмЧ</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ЗмЖ</string>
        </property>
       </item>
      </widget>

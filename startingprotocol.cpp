@@ -230,6 +230,7 @@ void StartingProtocol::on_pushButton_createSwim_clicked()
             int flagind = 0;
             QFont font;
             font.setBold(true);
+            bool checkZapliv=false;
             for (int i = 0; i < countSwims+countPeopleInCategory;i++) {
                 numb_sportsmen++;
                 if(ostacha==1){
@@ -266,7 +267,12 @@ void StartingProtocol::on_pushButton_createSwim_clicked()
                 }
                 if(numb_sportsmen==0){
                     ui->tableWidget_startSwim->setSpan(i,0,1,12);
-                    ui->tableWidget_startSwim->item(i,0)->setText(ui->comboBox_category->currentText() + " Заплив "+ QString::number(numb_swim));
+                    if(!checkZapliv){
+                    ui->tableWidget_startSwim->item(i,0)->setText(ui->comboBox_category->currentText() + "\nЗаплив "+ QString::number(numb_swim));
+                    checkZapliv=true;}
+                    else if(checkZapliv){
+                         ui->tableWidget_startSwim->item(i,0)->setText("Заплив "+ QString::number(numb_swim));
+                    }
                     QTableWidgetItem *item = ui->tableWidget_startSwim->item(i, 0);
                     item->setTextAlignment(Qt::AlignHCenter);
 
@@ -501,6 +507,7 @@ void StartingProtocol::on_pushButton_createSwim_clicked()
             int flagind = 0;
             QFont font;
             font.setBold(true);
+            bool checkZapliv = false;
             for (int i = 0; i < countSwims+countPeopleInCategory;i++) {
                 numb_sportsmen++;
                 if(ostacha==1){
@@ -537,7 +544,13 @@ void StartingProtocol::on_pushButton_createSwim_clicked()
                 }
                 if(numb_sportsmen==0){
                     ui->tableWidget_startSwim_2->setSpan(i,0,1,12);
-                    ui->tableWidget_startSwim_2->item(i,0)->setText(ui->comboBox_category->currentText() + " Заплив "+ QString::number(numb_swim));
+                    if(!checkZapliv){
+                    ui->tableWidget_startSwim_2->item(i,0)->setText(ui->comboBox_category->currentText() + "\nЗаплив "+ QString::number(numb_swim));
+                    checkZapliv=true;
+                    }
+                    else if(checkZapliv){
+                        ui->tableWidget_startSwim_2->item(i,0)->setText("Заплив "+ QString::number(numb_swim));
+                    }
                     QTableWidgetItem *item = ui->tableWidget_startSwim_2->item(i, 0);
                     item->setTextAlignment(Qt::AlignHCenter);
                     numb_swim++;
@@ -2191,12 +2204,12 @@ void StartingProtocol::on_pushButton_update_clicked()
     double minute,recSeconds;
     for(int i = 0; i< ui->tableWidget_startSwim->rowCount();i++){
         if(ui->tableWidget_startSwim->item(i,8)->text()!=""
-            && ui->tableWidget_startSwim->item(i,8)->text().length()==8
-            && ui->tableWidget_startSwim->item(i,8)->text().contains(":")==true
-            && ui->tableWidget_startSwim->item(i,8)->text().contains(".")==true
-            && ui->tableWidget_startSwim->item(i,8)->text() != "ДК"
-            && !ui->tableWidget_startSwim->item(i,7)->text().contains("ПК")
-            && ui->tableWidget_startSwim->item(i,8)->text() != "00:00.00"){
+                && ui->tableWidget_startSwim->item(i,8)->text().length()==8
+                && ui->tableWidget_startSwim->item(i,8)->text().contains(":")==true
+                && ui->tableWidget_startSwim->item(i,8)->text().contains(".")==true
+                && ui->tableWidget_startSwim->item(i,8)->text() != "ДК"
+                && !ui->tableWidget_startSwim->item(i,7)->text().contains("ПК")
+                && ui->tableWidget_startSwim->item(i,8)->text() != "00:00.00"){
             if(ui->comboBox_swimPool->currentText()=="50м"){
                 if(ui->tableWidget_startSwim->item(i,7)->text().contains("50,В.ст.,Ч")){
                     minute = ui->tableWidget_startSwim->item(i,8)->text().mid(0,2).toDouble();
@@ -2546,67 +2559,8 @@ void StartingProtocol::on_pushButton_update_clicked()
 
             }
             else{
-                if(ui->tableWidget_startSwim->item(i,7)->text().contains("4x100,В.ст.,Ч")){
-                    minute = ui->tableWidget_startSwim->item(i,8)->text().mid(9,2).toDouble();
-                    second = ui->tableWidget_startSwim->item(i,8)->text().mid(12,7).toDouble();
-                    if(minute!=0){
-                        second=second+(minute*60);
-                    }
-                    recSeconds = finn->ui->lineEdit_50m_freestyle_men4x100->text().mid(0,2).toDouble()*60;
-                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_men4x100->text().mid(3,7).toDouble() + recSeconds) / second),3);
 
-
-                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
-                }
-                else if(ui->tableWidget_startSwim->item(i,7)->text().contains("4x50,В.ст.,Ч")){
-                    minute = ui->tableWidget_startSwim->item(i,8)->text().mid(9,2).toDouble();
-                    second = ui->tableWidget_startSwim->item(i,8)->text().mid(12,7).toDouble();
-                    if(minute!=0){
-                        second=second+(minute*60);
-                    }
-                    recSeconds = finn->ui->lineEdit_25m_freestyle_men4x50->text().mid(0,2).toDouble()*60;
-                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men4x50->text().mid(3,7).toDouble() + recSeconds) / second),3);
-
-
-                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
-                }
-                else if(ui->tableWidget_startSwim->item(i,7)->text().contains("4x200,В.ст.,Ч")){
-                    minute = ui->tableWidget_startSwim->item(i,8)->text().mid(9,2).toDouble();
-                    second = ui->tableWidget_startSwim->item(i,8)->text().mid(12,7).toDouble();
-                    if(minute!=0){
-                        second=second+(minute*60);
-                    }
-                    recSeconds = finn->ui->lineEdit_50m_freestyle_men4x200->text().mid(0,2).toDouble()*60;
-                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_men4x200->text().mid(3,7).toDouble() + recSeconds) / second),3);
-
-
-                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
-                }
-                else if(ui->tableWidget_startSwim->item(i,7)->text().contains("4x200,В.ст.,Ж")){
-                    minute = ui->tableWidget_startSwim->item(i,8)->text().mid(9,2).toDouble();
-                    second = ui->tableWidget_startSwim->item(i,8)->text().mid(12,7).toDouble();
-                    if(minute!=0){
-                        second=second+(minute*60);
-                    }
-                    recSeconds = finn->ui->lineEdit_50m_freestyle_women4x200->text().mid(0,2).toDouble()*60;
-                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_women4x200->text().mid(3,7).toDouble() + recSeconds) / second),3);
-
-
-                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
-                }
-                else if(ui->tableWidget_startSwim->item(i,7)->text().contains("4x100,В.ст.,Ж")){
-                    minute = ui->tableWidget_startSwim->item(i,8)->text().mid(9,2).toDouble();
-                    second = ui->tableWidget_startSwim->item(i,8)->text().mid(12,7).toDouble();
-                    if(minute!=0){
-                        second=second+(minute*60);
-                    }
-                    recSeconds = finn->ui->lineEdit_50m_freestyle_women4x100->text().mid(0,2).toDouble()*60;
-                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_women4x100->text().mid(3,7).toDouble() + recSeconds) / second),3);
-
-
-                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
-                }
-                else if(ui->tableWidget_startSwim->item(i,7)->text().contains("50,В.ст.,Ч")){
+                if(ui->tableWidget_startSwim->item(i,7)->text().contains("50,В.ст.,Ч")){
                     minute = ui->tableWidget_startSwim->item(i,8)->text().mid(0,2).toDouble();
                     second = ui->tableWidget_startSwim->item(i,8)->text().mid(3,7).toDouble();
                     if(minute!=0){
@@ -4456,7 +4410,30 @@ void StartingProtocol::on_pushButton_createNewReiting_2_clicked()
 
 void StartingProtocol::on_pushButton_copyTableSwim_2_clicked()
 {
+    QString selected_text_as_html;
+    QString selected_text;
+    QTableWidget *table = ui->tableWidget_startSwim_2;
+    selected_text_as_html.prepend("<html><style>br{mso-data-placement:same-cell;}</style><table><tr><td>");
 
+    for (int rowIndex = 0; rowIndex <table->rowCount(); rowIndex++) {
+        for (int columnIndex = 0; columnIndex < 12; columnIndex++) {
+            if(columnIndex==7)continue;
+            QString text = table->item(rowIndex,columnIndex)->text();
+            selected_text.append(text);
+            text.replace("\n","<br>");
+            selected_text_as_html.append(text);
+            selected_text_as_html.append("</td><td>");
+            selected_text.append(QLatin1Char('\t'));
+        }
+        selected_text_as_html.append("</td></tr><tr><td>");
+        selected_text.append(QLatin1Char('\n'));
+    }
+    selected_text_as_html.append("</td></tr>");
+    QMimeData * md = new QMimeData;
+    md->setHtml(selected_text_as_html);
+    qDebug() << selected_text;
+    md->setText(selected_text);
+    qApp->clipboard()->setMimeData(md);
 }
 
 void StartingProtocol::on_pushButton_update_2_clicked()
@@ -4464,9 +4441,10 @@ void StartingProtocol::on_pushButton_update_2_clicked()
     RankSettings * rank = new RankSettings();
     for(int i=0;i<ui->tableWidget_startSwim_2->rowCount();i++){
         if(ui->tableWidget_startSwim_2->item(i,8)->text().contains(":")==true
-            && ui->tableWidget_startSwim_2->item(i,8)->text().contains(".")==true){
+                && ui->tableWidget_startSwim_2->item(i,8)->text().contains(".")==true){
             if(ui->comboBox_swimPool_2->currentText() == "50м"){
-                if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ч")){
+                if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ч") ||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,ЗмЧ")){
                     for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount();j++){
                         if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_50Men->item(0,j-1)->text()&&
                                 ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_50Men->item(0,j)->text())
@@ -4485,1297 +4463,1529 @@ void StartingProtocol::on_pushButton_update_2_clicked()
                         else continue;
                     }
                 }
-            }
-//                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,Ч")){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(1,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(1,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(1,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(1,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(1,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(1,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(1,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(1,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
 
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,Ч")){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(2,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(2,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(2,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(2,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,Ч") ||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(2,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(2,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(2,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(2,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
 
-//                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,На спині,Ч")){
-//                    for(int j = 3; j < rank->ui->tableWidget_50Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(6,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(6,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(6,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(6,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,На спині,Ч")){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(7,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(7,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(7,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(7,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,На спині,Ч")){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(8,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(8,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(8,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(8,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Брас,Ч"){
-//                    for(int j = 3; j < rank->ui->tableWidget_50Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(9,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(9,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(9,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(9,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Брас,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(10,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(10,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(10,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(10,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Брас,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(11,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(11,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(11,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(11,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Бат,Ч"){
-//                    for(int j = 3; j < rank->ui->tableWidget_50Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(12,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(12,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(12,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(12,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Бат,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(13,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(13,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(13,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(13,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Бат,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(14,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(14,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(14,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(14,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Комп.,Ч"){
-//                    ui->tableWidget_startSwim->item(0,9)->setText("Помилка");
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Комп.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(16,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(16,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(16,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(16,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="400,Комп.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(17,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(17,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(17,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(17,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                //-----------------------------------------Women-----------------------------------
-//                else if(ui->comboBox_category->currentText()=="50,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(0,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(0,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(0,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(0,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(1,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(1,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(1,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(1,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
+                //                 else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,На спині,Ч")){
+                //                     for(int j = 3; j < rank->ui->tableWidget_50Men->columnCount();j++){
+                //                         if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(6,j-1)->text()&&
+                //                                 ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(6,j)->text())
+                //                         {
+                //                             ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                             break;
+                //                         }
+                //                         else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(6,j-1)->text()){
+                //                             ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                             break;
+                //                         }
+                //                         else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(6,7)->text() ){
+                //                             ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                //                             break;
+                //                         }
+                //                         else continue;
+                //                     }
+                //                 }
+                //                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,На спині,Ч")){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(7,j-1)->text()&&
+                //                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(7,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(7,j-1)->text()){
+                //                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(7,6)->text() ){
+                //                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,На спині,Ч")){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount() ;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(8,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(8,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(8,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(8,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Брас,Ч"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_50Men->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(9,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(9,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(9,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(9,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Брас,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(10,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(10,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(10,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(10,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Брас,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(11,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(11,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(11,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(11,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Бат,Ч"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_50Men->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(12,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(12,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(12,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(12,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Бат,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(13,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(13,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(13,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(13,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Бат,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(14,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(14,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(14,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(14,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,ЗмЧ")){
+                    ui->tableWidget_startSwim_2->item(0,9)->setText("-");
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(8,j-1)->text()&&
+                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(8,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Men->item(8,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Men->item(8,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                //                else if(ui->comboBox_category->currentText()=="400,Комп.,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Men->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(17,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(17,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Men->item(17,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Men->item(17,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                //-----------------------------------------Women-----------------------------------
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(0,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(0,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(0,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(0,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(1,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(1,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(1,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(1,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
 
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(2,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(2,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(2,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(2,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="400,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(3,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(3,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(3,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(3,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="800,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(4,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(4,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(4,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(4,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="1500,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(5,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(5,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(5,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(5,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,На спині,Ж"){
-//                    for(int j = 3; j < rank->ui->tableWidget_50Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(6,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(6,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(6,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(6,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,На спині,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(7,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(7,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(7,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(7,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,На спині,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(8,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(8,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(8,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(8,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Брас,Ж"){
-//                    for(int j = 3; j < rank->ui->tableWidget_50Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(9,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(9,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(9,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(9,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Брас,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(10,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(10,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(10,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(10,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Брас,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(11,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(11,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(11,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(11,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Бат,Ж"){
-//                    for(int j = 3; j < rank->ui->tableWidget_50Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(12,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(12,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(12,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(12,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Бат,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(13,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(13,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(13,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(13,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Бат,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(14,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(14,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(14,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(14,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Комп.,Ж"){
-//                    ui->tableWidget_startSwim->item(0,9)->setText("-");
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Комп.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(16,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(16,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(16,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(16,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="400,Комп.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(17,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(17,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(17,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(17,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,Ж") ||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(2,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(2,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(2,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(2,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                //                else if(ui->comboBox_category->currentText()=="400,В.ст.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(3,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(3,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(3,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(3,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="800,В.ст.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(4,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(4,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(4,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(4,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="1500,В.ст.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(5,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(5,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(5,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(5,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,На спині,Ж"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_50Women->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(6,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(6,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(6,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(6,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,На спині,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(7,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(7,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(7,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(7,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,На спині,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(8,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(8,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(8,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(8,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Брас,Ж"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_50Women->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(9,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(9,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(9,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(9,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Брас,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(10,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(10,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(10,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(10,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Брас,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(11,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(11,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(11,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(11,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Бат,Ж"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_50Women->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(12,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(12,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(12,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(12,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Бат,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(13,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(13,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(13,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(13,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Бат,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(14,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(14,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(14,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(14,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,ЗмЖ")){
+                    ui->tableWidget_startSwim->item(0,9)->setText("-");
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(8,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(8,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_50Women->item(8,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_50Women->item(8,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                else ui->tableWidget_startSwim_2->item(i,9)->setText("-");
+                //                else if(ui->comboBox_category->currentText()=="400,Комп.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(17,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(17,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_50Women->item(17,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_50Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_50Women->item(17,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
             }
             //------------------------25m----------------------------
-            else {
-//                if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ч")){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,j-1)->text()&&
-//                                ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j-1)->text()){
-//                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,7)->text() ){
-//                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
+            else{
+                if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) < rank->ui->tableWidget_25Men->item(0,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text().mid(0,8) > rank->ui->tableWidget_25Men->item(0,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(1,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(1,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(1,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(1,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(2,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(2,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(2,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(2,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                //                else if(ui->comboBox_category->currentText()=="400,В.ст.,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(3,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(3,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(3,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(3,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="800,В.ст.,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(4,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(4,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(4,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(4,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="1500,В.ст.,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(5,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(5,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(5,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(5,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,На спині,Ч"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_25Men->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(6,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(6,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(6,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(6,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,На спині,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(7,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(7,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(7,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(7,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,На спині,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(8,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(8,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(8,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(8,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Брас,Ч"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_25Men->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(9,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(9,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(9,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(9,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Брас,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(10,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(10,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(10,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(10,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Брас,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(11,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(11,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(11,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(11,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Бат,Ч"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_25Men->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(12,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(12,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(12,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(12,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Бат,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(13,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(13,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(13,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(13,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Бат,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(14,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(14,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(14,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(14,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(7,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(7,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(7,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(7,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,Ч")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,ЗмЧ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(8,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(8,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Men->item(8,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Men->item(8,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                //                else if(ui->comboBox_category->currentText()=="400,Комп.,Ч"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(17,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(17,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(17,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(17,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                //-----------------------Women25-----------------
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("50,В.ст.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(0,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(0,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(0,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(0,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,В.ст.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount();j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(1,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(1,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(1,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(1,7)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,В.ст.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(2,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(2,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(2,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(2,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                //                else if(ui->comboBox_category->currentText()=="400,В.ст.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(3,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(3,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(3,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(3,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="800,В.ст.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(4,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(4,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(4,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(4,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="1500,В.ст.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(5,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(5,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(5,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(5,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,На спині,Ж"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_25Women->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(6,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(6,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(6,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(6,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,На спині,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(7,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(7,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(7,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(7,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,На спині,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(8,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(8,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(8,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(8,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Брас,Ж"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_25Women->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(9,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(9,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(9,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(9,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Брас,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(10,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(10,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(10,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(10,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Брас,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(11,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(11,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(11,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(11,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="50,Бат,Ж"){
+                //                    for(int j = 3; j < rank->ui->tableWidget_25Women->columnCount();j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(12,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(12,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(12,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(12,7)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="100,Бат,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(13,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(13,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(13,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(13,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                else if(ui->comboBox_category->currentText()=="200,Бат,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(14,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(14,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(14,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(14,6)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("100,Комб.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(7,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(7,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(7,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(7,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                else if(ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,Ж")||
+                        ui->tableWidget_startSwim_2->item(1,7)->text().contains("200,Комб.,ЗмЖ")){
+                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
+                        if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(8,j-1)->text()&&
+                                ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(8,j)->text())
+                        {
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() < rank->ui->tableWidget_25Women->item(8,j-1)->text()){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                            break;
+                        }
+                        else if(ui->tableWidget_startSwim_2->item(i,8)->text() > rank->ui->tableWidget_25Women->item(8,6)->text() ){
+                            ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                else ui->tableWidget_startSwim_2->item(i,9)->setText("-");
+                //                else if(ui->comboBox_category->currentText()=="400,Комп.,Ж"){
+                //                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-2;j++){
+                //                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(17,j-1)->text()&&
+                //                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(17,j)->text())
+                //                        {
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(17,j-1)->text()){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
+                //                            break;
+                //                        }
+                //                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(17,5)->text() ){
+                //                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
+                //                            break;
+                //                        }
+                //                        else continue;
+                //                    }
+                //                }
+                //                ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
+
+                //            }
+
+                //        }
+                //        else{
+                //            ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::red);
+                //        }
+                //        if(ui->tableWidget_startSwim->item(i,7)->text().contains("(ПК)")){
+                //            ui->tableWidget_startSwim->item(i,10)->setText("~");
+                //        }
+                //        if(ui->tableWidget_startSwim->item(i,8)->text()=="ДК"){
+                //            ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
+                //            ui->tableWidget_startSwim->item(i,9)->setText("-");
+                //            ui->tableWidget_startSwim->item(i,10)->setText("-");
+                //        }
+            }
+
         }
-//                else if(ui->comboBox_category->currentText()=="100,В.ст.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(1,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(1,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(1,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(1,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,В.ст.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(2,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(2,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(2,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(2,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="400,В.ст.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(3,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(3,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(3,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(3,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="800,В.ст.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(4,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(4,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(4,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(4,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="1500,В.ст.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(5,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(5,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(5,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(5,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,На спині,Ч"){
-//                    for(int j = 3; j < rank->ui->tableWidget_25Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(6,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(6,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(6,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(6,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,На спині,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(7,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(7,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(7,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(7,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,На спині,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(8,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(8,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(8,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(8,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Брас,Ч"){
-//                    for(int j = 3; j < rank->ui->tableWidget_25Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(9,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(9,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(9,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(9,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Брас,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(10,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(10,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(10,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(10,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Брас,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(11,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(11,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(11,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(11,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Бат,Ч"){
-//                    for(int j = 3; j < rank->ui->tableWidget_25Men->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(12,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(12,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(12,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(12,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Бат,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(13,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(13,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(13,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(13,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Бат,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(14,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(14,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(14,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(14,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Комп.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(15,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(15,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(15,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(15,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Комп.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(16,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(16,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(16,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(16,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="400,Комп.,Ч"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Men->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(17,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(17,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Men->item(17,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Men->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Men->item(17,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                //-----------------------Women25-----------------
-//                else if(ui->comboBox_category->currentText()=="50,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(0,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(0,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(0,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(0,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(1,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(1,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(1,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(1,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(2,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(2,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(2,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(2,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="400,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(3,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(3,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(3,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(3,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="800,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(4,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(4,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(4,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(4,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="1500,В.ст.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(5,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(5,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(5,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(5,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,На спині,Ж"){
-//                    for(int j = 3; j < rank->ui->tableWidget_25Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(6,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(6,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(6,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(6,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,На спині,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(7,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(7,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(7,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(7,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,На спині,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(8,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(8,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(8,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(8,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Брас,Ж"){
-//                    for(int j = 3; j < rank->ui->tableWidget_25Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(9,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(9,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(9,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(9,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Брас,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(10,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(10,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(10,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(10,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Брас,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(11,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(11,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(11,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(11,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="50,Бат,Ж"){
-//                    for(int j = 3; j < rank->ui->tableWidget_25Women->columnCount();j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(12,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(12,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(12,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(12,7)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Бат,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(13,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(13,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(13,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(13,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Бат,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(14,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(14,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(14,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(14,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="100,Комп.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(15,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(15,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(15,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(15,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="200,Комп.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-1;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(16,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(16,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(16,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(16,6)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                else if(ui->comboBox_category->currentText()=="400,Комп.,Ж"){
-//                    for(int j = 2; j < rank->ui->tableWidget_25Women->columnCount()-2;j++){
-//                        if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(17,j-1)->text()&&
-//                                ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(17,j)->text())
-//                        {
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() < rank->ui->tableWidget_25Women->item(17,j-1)->text()){
-//                            ui->tableWidget_startSwim->item(i,9)->setText(rank->ui->tableWidget_25Women->horizontalHeaderItem(j-1)->text());
-//                            break;
-//                        }
-//                        else if(ui->tableWidget_startSwim->item(i,8)->text() > rank->ui->tableWidget_25Women->item(17,5)->text() ){
-//                            ui->tableWidget_startSwim->item(i,9)->setText("б/р");
-//                            break;
-//                        }
-//                        else continue;
-//                    }
-//                }
-//                ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
-
-//            }
-
-//        }
-//        else{
-//            ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::red);
-//        }
-//        if(ui->tableWidget_startSwim->item(i,7)->text().contains("(ПК)")){
-//            ui->tableWidget_startSwim->item(i,10)->setText("~");
-//        }
-//        if(ui->tableWidget_startSwim->item(i,8)->text()=="ДК"){
-//            ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
-//            ui->tableWidget_startSwim->item(i,9)->setText("-");
-//            ui->tableWidget_startSwim->item(i,10)->setText("-");
-//        }
     }
-
+    SettingsRecords * finn = new SettingsRecords();
+    int points;
+    QString miliseconds;
+    double second;
+    double minute,recSeconds;
+    for(int i = 0; i< ui->tableWidget_startSwim_2->rowCount();i++){
+        if(ui->tableWidget_startSwim_2->item(i,8)->text()!=""
+                && ui->tableWidget_startSwim_2->item(i,8)->text().contains(":")
+                && ui->tableWidget_startSwim_2->item(i,8)->text().contains(".")
+                && ui->tableWidget_startSwim_2->item(i,8)->text().length()>=8){
+            if(ui->comboBox_swimPool_2->currentText()=="50м"){
+                if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,В.ст.,Ч")){
+                    ui->tableWidget_startSwim_2->item(i,10)->setText("-");
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,В.ст.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_men4x100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_men4x100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("200,В.ст.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_men4x200->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_men4x200->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,Комб.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_back_men50->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_back_men50->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,Ч")||
+                        ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,ЗмЧ")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_back_men100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_back_men100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("200,Комб.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_back_men200->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_back_men200->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,В.ст.,Ж")){
+                    ui->tableWidget_startSwim_2->item(i,10)->setText("-");
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,В.ст.,Ж")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_women4x100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_women4x100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("200,В.ст.,Ж")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_women4x200->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_women4x200->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,Ж")||
+                        ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,ЗмЖ")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_50m_back_women100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_back_women100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+            }
+            else{
+                //-------------------25m
+                if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,В.ст.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_men4x50->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men4x50->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,В.ст.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_men4x100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men4x100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("200,В.ст.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_men4x200->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men4x200->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,Комб.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_back_men50->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_back_men50->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,Ч")||
+                        ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,ЗмЧ")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_back_men100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_back_men100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("200,Комб.,Ч")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_back_men200->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_back_men200->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,В.ст.,Ж")){
+                    ui->tableWidget_startSwim_2->item(i,10)->setText("-");
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,В.ст.,Ж")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_women4x100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_women4x100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("200,В.ст.,Ж")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_women4x200->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_women4x200->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,Ж")||
+                        ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,ЗмЖ")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_back_women100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_back_women100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+                else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,Комб.,Ж")||
+                        ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,Комб.,ЗмЖ")){
+                    minute = ui->tableWidget_startSwim_2->item(i,8)->text().mid(9,2).toDouble();
+                    second = ui->tableWidget_startSwim_2->item(i,8)->text().mid(12,7).toDouble();
+                    if(minute!=0){
+                        second=second+(minute*60);
+                    }
+                    recSeconds = finn->ui->lineEdit_25m_back_women50->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_25m_back_women50->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
+                }
+            }
+        }
+    }
 }
 
 void StartingProtocol::on_comboBox_swimPool_2_currentIndexChanged(const QString &arg1)
