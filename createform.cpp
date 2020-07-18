@@ -40,51 +40,51 @@ void CreateForm::on_pushButton_AddPerson_clicked()
         int rowOfTeam;
         if(ui->comboBox_meter->currentText().contains("4x")){
 
-        QString teamName = "("+ui->lineEdit_customTeam->text().simplified()+")";
-        for (int i = 0;i<ui->tableWidget->rowCount();i++) {
-            if(ui->tableWidget->item(i,5)->text().contains(teamName)){
-                teamContainsed=true;
-                rowOfTeam=i;
-                break;
+            QString teamName = "("+ui->lineEdit_customTeam->text().simplified()+")";
+            for (int i = 0;i<ui->tableWidget->rowCount();i++) {
+                if(ui->tableWidget->item(i,5)->text().contains(teamName)){
+                    teamContainsed=true;
+                    rowOfTeam=i;
+                    break;
+                }
             }
-        }
         }
         if((!ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)||(ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)){
             if((ui->comboBox_meter->currentText().contains("4x") && ui->checkBox_personalOrTeam->isChecked()
-                    && ui->lineEdit_customTeam->text().length()!=0)
+                && ui->lineEdit_customTeam->text().length()!=0)
                     || !ui->comboBox_meter->currentText().contains("4x")){
-            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,0,  new QTableWidgetItem(ui->lineEdit_FIO_Create_Form->text().simplified() + " "+ ui->lineEdit_Name->text().simplified()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,1,  new QTableWidgetItem(ui->spinBox_Year->text()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,2,  new QTableWidgetItem(ui->comboBox_rank->currentText()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,4,  new QTableWidgetItem(ui->lineEdit_dst->text()));
-            if(ui->checkBox_personalOrTeam->isChecked()){
-                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,5,  new QTableWidgetItem(ui->lineEdit_school->text().simplified()+"("+ui->lineEdit_customTeam->text().simplified()+")"));
-            }
-            else ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,5,  new QTableWidgetItem(ui->lineEdit_school->text().simplified()));
+                ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,0,  new QTableWidgetItem(ui->lineEdit_FIO_Create_Form->text().simplified() + " "+ ui->lineEdit_Name->text().simplified()));
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,1,  new QTableWidgetItem(ui->spinBox_Year->text()));
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,2,  new QTableWidgetItem(ui->comboBox_rank->currentText()));
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,4,  new QTableWidgetItem(ui->lineEdit_dst->text()));
+                if(ui->checkBox_personalOrTeam->isChecked()){
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,5,  new QTableWidgetItem(ui->lineEdit_school->text().simplified()+"("+ui->lineEdit_customTeam->text().simplified()+")"));
+                }
+                else ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,5,  new QTableWidgetItem(ui->lineEdit_school->text().simplified()));
 
-            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,7,  new QTableWidgetItem(ui->comboBox_minutes->currentText()+":"+ui->comboBox_seconds->currentText()+ "." +ui->comboBox_miliseconds->currentText()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,8,  new QTableWidgetItem(ui->lineEdit_Coach_CreateForm->text()));
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,7,  new QTableWidgetItem(ui->comboBox_minutes->currentText()+":"+ui->comboBox_seconds->currentText()+ "." +ui->comboBox_miliseconds->currentText()));
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,8,  new QTableWidgetItem(ui->lineEdit_Coach_CreateForm->text()));
 
-            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(К)"));
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(К)"));
 
 
-            if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() != "" && ui->lineEdit_country->text()!=""){
-                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,  new QTableWidgetItem(ui->lineEdit_city->text()+",\n"+ui->lineEdit_region->text()+" обл.,\n"+ui->lineEdit_country->text()));
-            }
+                if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() != "" && ui->lineEdit_country->text()!=""){
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,  new QTableWidgetItem(ui->lineEdit_city->text()+",\n"+ui->lineEdit_region->text()+" обл.,\n"+ui->lineEdit_country->text()));
+                }
 
-            else if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() != "" && ui->lineEdit_country->text()==""){
-                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,  new QTableWidgetItem(ui->lineEdit_city->text()+",\n"+ui->lineEdit_region->text()+" обл."));
-            }
-            else if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() == "" && ui->lineEdit_country->text() ==""){
-                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,  new QTableWidgetItem(ui->lineEdit_city->text()));
-            }
-            else if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() == "" && ui->lineEdit_country->text() !=""){
-                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,new QTableWidgetItem(ui->lineEdit_city->text()+",\n"+ui->lineEdit_country->text()));
-            }
+                else if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() != "" && ui->lineEdit_country->text()==""){
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,  new QTableWidgetItem(ui->lineEdit_city->text()+",\n"+ui->lineEdit_region->text()+" обл."));
+                }
+                else if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() == "" && ui->lineEdit_country->text() ==""){
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,  new QTableWidgetItem(ui->lineEdit_city->text()));
+                }
+                else if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() == "" && ui->lineEdit_country->text() !=""){
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,3,new QTableWidgetItem(ui->lineEdit_city->text()+",\n"+ui->lineEdit_country->text()));
+                }
 
-            ui->tableWidget->resizeRowsToContents();
-            ui->tableWidget->resizeColumnsToContents();
+                ui->tableWidget->resizeRowsToContents();
+                ui->tableWidget->resizeColumnsToContents();
             }
             else{
                 QMessageBox::critical(this,"Помилка введення", "Введіть команду");
