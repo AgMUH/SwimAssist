@@ -82,8 +82,6 @@ private slots:
 
     void on_checkBox_personalOrTeam_clicked(bool checked);
 
-    void on_comboBox_sortBy_currentIndexChanged(const QString &arg1);
-
     void on_pushButton_OK_timeInput_2_clicked();
 
     void on_pushButton_DK_2_clicked();
@@ -117,6 +115,8 @@ private slots:
 
 
     void on_lineEdit_firstSportsmen_textChanged(const QString &arg1);
+
+    void on_comboBox_category_currentTextChanged(const QString &arg1);
 
 private:
 };

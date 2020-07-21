@@ -144,45 +144,6 @@
 файл</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_sortReiting">
-     <property name="geometry">
-      <rect>
-       <x>1020</x>
-       <y>390</y>
-       <width>161</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Сортувати за
-категорією:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="comboBox_sortBy">
-     <property name="geometry">
-      <rect>
-       <x>1020</x>
-       <y>450</y>
-       <width>161</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <item>
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-    </widget>
     <widget class="QPushButton" name="pushButton_copyTableReitings">
      <property name="geometry">
       <rect>
@@ -252,7 +213,7 @@
     <widget class="QWidget" name="widget" native="true">
      <property name="geometry">
       <rect>
-       <x>640</x>
+       <x>650</x>
        <y>10</y>
        <width>541</width>
        <height>471</height>
@@ -1988,7 +1949,7 @@
      <property name="geometry">
       <rect>
        <x>1020</x>
-       <y>320</y>
+       <y>250</y>
        <width>161</width>
        <height>61</height>
       </rect>
@@ -2133,6 +2094,11 @@
            <pointsize>11</pointsize>
           </font>
          </property>
+         <item>
+          <property name="text">
+           <string/>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>
@@ -2141,8 +2107,6 @@
     <zorder>pushButton_addParticipant</zorder>
     <zorder>tableWidget_startReiting</zorder>
     <zorder>pushButton_openFile</zorder>
-    <zorder>pushButton_sortReiting</zorder>
-    <zorder>comboBox_sortBy</zorder>
     <zorder>pushButton_copyTableReitings</zorder>
     <zorder>pushButton_clearTableReiting</zorder>
     <zorder>pushButton_deleteRow</zorder>

@@ -53,6 +53,12 @@ SettingsRecords::SettingsRecords(QWidget *parent) :
     ui->lineEdit_25m_back_men50->setText(Men25_back_50);
     ui->lineEdit_25m_back_men100->setText(Men25_back_100);
     ui->lineEdit_25m_back_men200->setText(Men25_back_200);
+    ui->lineEdit_25m_complex_men100->setText(Men25_complex_100);
+    ui->lineEdit_25m_complex_men200->setText(Men25_complex_200);
+    ui->lineEdit_25m_complex_men400->setText(Men25_complex_400);
+    ui->lineEdit_25m_complex_men4x50->setText(Men25_complex_4x50);
+    ui->lineEdit_25m_complex_men4x100->setText(Men25_complex_4x100);
+    
 
 }
 
