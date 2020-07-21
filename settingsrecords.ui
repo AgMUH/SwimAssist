@@ -868,7 +868,7 @@
      </widget>
      <widget class="QWidget" name="tab_21">
       <attribute name="title">
-       <string>Комбіноване плавання</string>
+       <string>Комплекс</string>
       </attribute>
       <widget class="QTabWidget" name="tabWidget_13">
        <property name="geometry">
@@ -1945,7 +1945,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Комбіноване плавання</string>
+       <string>Комплекс</string>
       </attribute>
       <widget class="QTabWidget" name="tabWidget_9">
        <property name="geometry">
