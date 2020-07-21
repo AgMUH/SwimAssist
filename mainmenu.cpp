@@ -13,8 +13,8 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(newCreateForm, &CreateForm::firstWindow, this, &MainMenu::show);
     startingProtocol = new StartingProtocol();
     connect(startingProtocol, &StartingProtocol::protocolWindow,this,&MainMenu::show);
-    rankSettings = new RankSettings();
-    connect(rankSettings, &RankSettings::rankMenu,this, &MainMenu::show);
+//    rankSettings = new RankSettings();
+//    connect(rankSettings, &RankSettings::rankMenu,this, &MainMenu::show);
 }
 
 MainMenu::~MainMenu()
@@ -44,6 +44,7 @@ void MainMenu::on_pushButton_startingProtocol_clicked()
 }
 void MainMenu::on_pushButton_sportRank_clicked()
 {
-    rankSettings->show();
-    this->close();
+    RankSettings * rank = new RankSettings();
+    rank->show();
+
 }

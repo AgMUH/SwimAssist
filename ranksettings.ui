@@ -3516,24 +3516,6 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton_back">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>680</y>
-     <width>131</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Назад</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_saveChanges">
    <property name="geometry">
     <rect>

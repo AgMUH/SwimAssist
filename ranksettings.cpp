@@ -548,11 +548,11 @@ RankSettings::~RankSettings()
     delete ui;
 }
 
-void RankSettings::on_pushButton_back_clicked()
-{
-    this->close();
-    emit rankMenu();
-}
+//void RankSettings::on_pushButton_back_clicked()
+//{
+//    this->close();
+//    emit rankMenu();
+//}
 
 void RankSettings::on_pushButton_saveChanges_clicked()
 {
