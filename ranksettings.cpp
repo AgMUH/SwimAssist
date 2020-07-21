@@ -2,6 +2,8 @@
 #include "ui_ranksettings.h"
 #include <QSettings>
 #include <QFile>
+#include <qdesktopservices.h>
+#include <qurl.h>
 RankSettings::RankSettings(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RankSettings)
@@ -899,4 +901,11 @@ void RankSettings::on_pushButton_saveChanges_clicked()
 //    settings.setValue("Men50_176", ui->tableWidget_50Men->item(17,6)->text());
 //    settings.setValue("Men50_177", ui->tableWidget_50Men->item(17,7)->text());
 //    settings.endGroup();
+}
+
+void RankSettings::on_pushButton_clicked()
+{
+    QDesktopServices open;
+    QString link = "http://swim.ks.ua/klasyfikatsijna-tablytsya-rozryadnyh-normatyviv-z-plavannya/";
+    open.openUrl(QUrl(link));
 }

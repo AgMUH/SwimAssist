@@ -3548,6 +3548,30 @@
 зміни</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>680</y>
+     <width>221</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:blue;
+</string>
+   </property>
+   <property name="text">
+    <string>Посилання на розряди</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

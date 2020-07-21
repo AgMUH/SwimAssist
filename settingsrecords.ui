@@ -2222,8 +2222,8 @@
   <widget class="QPushButton" name="pushButton_save_recordsSettings">
    <property name="geometry">
     <rect>
-     <x>574</x>
-     <y>422</y>
+     <x>570</x>
+     <y>420</y>
      <width>121</width>
      <height>51</height>
     </rect>
@@ -2235,6 +2235,31 @@
    </property>
    <property name="text">
     <string>Зберегти</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_openLinkRecords">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>420</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:blue;
+</string>
+   </property>
+   <property name="text">
+    <string>Посилання на рекорди</string>
    </property>
   </widget>
  </widget>

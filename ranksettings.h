@@ -19,6 +19,8 @@ public:
 private slots:
     void on_pushButton_back_clicked();
     void on_pushButton_saveChanges_clicked();
+    void on_pushButton_clicked();
+
 private:
 
 };

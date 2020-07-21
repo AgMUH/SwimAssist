@@ -19,6 +19,8 @@ public:
 private slots:
     void on_pushButton_save_recordsSettings_clicked();
 
+    void on_pushButton_openLinkRecords_clicked();
+
 private:
 
 };
