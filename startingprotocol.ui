@@ -51,7 +51,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_reiting">
     <attribute name="title">
@@ -2312,6 +2312,9 @@
      <property name="text">
       <string>ДК</string>
      </property>
+     <property name="shortcut">
+      <string>F12</string>
+     </property>
     </widget>
     <widget class="QComboBox" name="comboBox_swimPool">
      <property name="geometry">
@@ -2935,7 +2938,7 @@
     <widget class="QLineEdit" name="lineEdit_styleProtocol_2">
      <property name="geometry">
       <rect>
-       <x>450</x>
+       <x>410</x>
        <y>10</y>
        <width>181</width>
        <height>20</height>
@@ -3021,122 +3024,11 @@
       </property>
      </column>
     </widget>
-    <widget class="QPushButton" name="pushButton_sortByYears_2">
-     <property name="geometry">
-      <rect>
-       <x>1010</x>
-       <y>10</y>
-       <width>161</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Сортувати за
-категоріями</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="comboBox_firstYear_2">
-     <property name="geometry">
-      <rect>
-       <x>1010</x>
-       <y>70</y>
-       <width>161</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <item>
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-    </widget>
-    <widget class="QComboBox" name="comboBox_secondYear_2">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>1010</x>
-       <y>100</y>
-       <width>161</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-    </widget>
-    <widget class="QComboBox" name="comboBox_thirdYear_2">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>1010</x>
-       <y>130</y>
-       <width>161</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-    </widget>
-    <widget class="QComboBox" name="comboBox_fourthYear_2">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>1010</x>
-       <y>160</y>
-       <width>161</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-    </widget>
-    <widget class="QComboBox" name="comboBox_fifthYear_2">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>1010</x>
-       <y>190</y>
-       <width>161</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-    </widget>
     <widget class="QPushButton" name="pushButton_openFileProtocol_2">
      <property name="geometry">
       <rect>
-       <x>1010</x>
-       <y>240</y>
+       <x>1020</x>
+       <y>320</y>
        <width>161</width>
        <height>51</height>
       </rect>
@@ -3153,8 +3045,8 @@
     <widget class="QComboBox" name="comboBox_protocolFiles_2">
      <property name="geometry">
       <rect>
-       <x>1010</x>
-       <y>290</y>
+       <x>1020</x>
+       <y>370</y>
        <width>161</width>
        <height>31</height>
       </rect>
@@ -3168,8 +3060,8 @@
     <widget class="QPushButton" name="pushButton_cleanProtocol_2">
      <property name="geometry">
       <rect>
-       <x>1010</x>
-       <y>350</y>
+       <x>1020</x>
+       <y>410</y>
        <width>161</width>
        <height>61</height>
       </rect>
@@ -3181,7 +3073,7 @@
     <widget class="QPushButton" name="pushButton_goToTeams_2">
      <property name="geometry">
       <rect>
-       <x>1010</x>
+       <x>1020</x>
        <y>470</y>
        <width>161</width>
        <height>61</height>
@@ -3200,7 +3092,7 @@
     <widget class="QPushButton" name="pushButton_copyTableProtocol_2">
      <property name="geometry">
       <rect>
-       <x>1010</x>
+       <x>1020</x>
        <y>530</y>
        <width>161</width>
        <height>61</height>
@@ -3214,6 +3106,89 @@
      <property name="text">
       <string>Копіювати</string>
      </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>1010</x>
+       <y>40</y>
+       <width>181</width>
+       <height>261</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="title">
+      <string>Сортування</string>
+     </property>
+     <widget class="QPushButton" name="pushButton_addSortYear_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>81</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Додати</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_removeSortYear">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>30</y>
+        <width>81</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Видалити</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_sortYear_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>161</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>39</number>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>161</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Рік</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_manyFights">

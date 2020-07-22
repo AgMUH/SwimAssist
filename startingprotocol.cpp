@@ -49,7 +49,7 @@ StartingProtocol::StartingProtocol(QWidget *parent) :
         if (file.open(QIODevice::ReadOnly))
         {
             if(!file.fileName().contains("4x")){
-            ui->comboBox_protocolFiles->addItem(file.fileName() ,QVariant::Int);
+                ui->comboBox_protocolFiles->addItem(file.fileName() ,QVariant::Int);
             }
             else if(file.fileName().contains("4x")){
                 ui->comboBox_protocolFiles_2->addItem(file.fileName() ,QVariant::Int);
@@ -791,6 +791,56 @@ void StartingProtocol::on_pushButton_createSwim_clicked()
             ui->tableWidget_startSwim_2->resizeColumnsToContents();
             numb_swim = 1;
         }
+    }
+    int countSp2=0;
+    int firstIndex2=0,lastIndex2=0;
+    int way2=0;
+    for (int i=0;i<ui->tableWidget_startSwim_2->rowCount();i++) {
+        firstIndex2=i;
+        for (int j=i+1;j<ui->tableWidget_startSwim_2->rowCount();j++) {
+            if(ui->tableWidget_startSwim_2->item(j,0)->text().contains("Заплив")){
+                lastIndex2=j;break;
+            }
+            else {
+                countSp2++;
+                lastIndex2=j+1;
+            }
+        }
+        if(countSp2!=ui->comboBox_countWays->count()){
+            way2 = (ui->comboBox_countWays->currentText().toInt()-countSp2)/2 +1;
+        }
+        else way2 = (ui->comboBox_countWays->currentText().toInt()-countSp2 + 1)/2 +1;
+        for (int j = firstIndex2+1;j<lastIndex2;j++) {
+            ui->tableWidget_startSwim_2->item(j,0)->setText(QString::number(way2));
+            way2++;
+        }
+        i+=countSp2;
+        countSp2=0;
+    }
+    int countSp=0;
+    int firstIndex=0,lastIndex=0;
+    int way=0;
+    for (int i=0;i<ui->tableWidget_startSwim->rowCount();i++) {
+        firstIndex=i;
+        for (int j=i+1;j<ui->tableWidget_startSwim->rowCount();j++) {
+            if(ui->tableWidget_startSwim->item(j,0)->text().contains("Заплив")){
+                lastIndex=j;break;
+            }
+            else {
+                countSp++;
+                lastIndex=j+1;
+            }
+        }
+        if(countSp!=ui->comboBox_countWays->count()){
+            way = (ui->comboBox_countWays->currentText().toInt()-countSp)/2 +1;
+        }
+        else way = (ui->comboBox_countWays->currentText().toInt()-countSp + 1)/2 +1;
+        for (int j = firstIndex+1;j<lastIndex;j++) {
+            ui->tableWidget_startSwim->item(j,0)->setText(QString::number(way));
+            way++;
+        }
+        i+=countSp;
+        countSp=0;
     }
     ui->tableWidget_startSwim->resizeRowsToContents();
     ui->tableWidget_startSwim->resizeColumnsToContents();
@@ -3783,9 +3833,22 @@ void StartingProtocol::on_pushButton_copyTableProtocol_clicked()
 
 void StartingProtocol::on_pushButton_DK_clicked()
 {
-    ui->tableWidget_startSwim->item(index,8)->setText("ДК");
-    ui->tableWidget_startSwim->item(index,9)->setText("-");
-    ui->tableWidget_startSwim->item(index,10)->setText("-");
+    if(ui->tab_startingProtocol->isVisible()){
+        ui->tableWidget_startSwim->item(index,8)->setText("ДК");
+        ui->tableWidget_startSwim->item(index,9)->setText("-");
+        ui->tableWidget_startSwim->item(index,10)->setText("-");
+        QFont font;
+        font.setBold(false);
+        ui->tableWidget_startSwim->item(index,1)->setFont(font);
+        if(ui->tableWidget_startSwim->rowCount()-1!=index){
+            if(ui->tableWidget_startSwim->item(index+1,1)->text()==""){
+                index = index+2;
+            }
+            else index++;
+            QTableWidgetItem * itemNext =  ui->tableWidget_startSwim->item(index,1);
+            on_tableWidget_startSwim_itemPressed(itemNext);
+        }
+    }
 }
 
 void StartingProtocol::on_comboBox_swimPool_currentTextChanged(const QString &arg1)
@@ -4711,20 +4774,22 @@ void StartingProtocol::on_pushButton_OK_timeInput_2_clicked()
 
 void StartingProtocol::on_pushButton_DK_2_clicked()
 {
-    ui->tableWidget_startSwim_2->item(index1,8)->setText(ui->lineEdit_firstSportsmen->text()+'\n'+"ДК");
-    ui->pushButton_update_2->clicked(true);
-    ui->tableWidget_startSwim_2->item(index1,10)->setText("-");
-    ui->pushButton_update_2->clicked(true);
-    QFont font;
-    font.setBold(false);
-    ui->tableWidget_startSwim_2->item(index1,1)->setFont(font);
-    if(ui->tableWidget_startSwim_2->rowCount()-1!=index1){
-        if(ui->tableWidget_startSwim_2->item(index1+1,1)->text()==""){
-            index1 = index1+2;
+    if(ui->tab_3->isVisible()){
+        ui->tableWidget_startSwim_2->item(index1,8)->setText(ui->lineEdit_firstSportsmen->text()+'\n'+"ДК");
+        ui->pushButton_update_2->clicked(true);
+        ui->tableWidget_startSwim_2->item(index1,10)->setText("-");
+        ui->pushButton_update_2->clicked(true);
+        QFont font;
+        font.setBold(false);
+        ui->tableWidget_startSwim_2->item(index1,1)->setFont(font);
+        if(ui->tableWidget_startSwim_2->rowCount()-1!=index1){
+            if(ui->tableWidget_startSwim_2->item(index1+1,1)->text()==""){
+                index1 = index1+2;
+            }
+            else index1++;
+            QTableWidgetItem * itemNext =  ui->tableWidget_startSwim_2->item(index1,1);
+            on_tableWidget_startSwim_2_itemPressed(itemNext);
         }
-        else index1++;
-        QTableWidgetItem * itemNext =  ui->tableWidget_startSwim_2->item(index1,1);
-        on_tableWidget_startSwim_2_itemPressed(itemNext);
     }
 }
 
@@ -6223,8 +6288,8 @@ void StartingProtocol::on_pushButton_update_2_clicked()
                     if(minute!=0){
                         second=second+(minute*60);
                     }
-                    recSeconds = finn->ui->lineEdit_50m_complex_men100->text().mid(0,2).toDouble()*60;
-                    points = 1000* pow(((finn->ui->lineEdit_50m_complex_men100->text().mid(3,7).toDouble() + recSeconds) / second),3);
+                    recSeconds = finn->ui->lineEdit_50m_complex_men4x100->text().mid(0,2).toDouble()*60;
+                    points = 1000* pow(((finn->ui->lineEdit_50m_complex_men4x100->text().mid(3,7).toDouble() + recSeconds) / second),3);
                     ui->tableWidget_startSwim_2->item(i,10)->setText(QString::number(points));
                 }
                 else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("100,Комб.,ЗмЧ")
@@ -6448,21 +6513,21 @@ void StartingProtocol::on_pushButton_openFileProtocol_2_clicked()
         }
     }
     bool flag1 = false;
-    for (int i = 0; i < ui->tableWidget_lastProtocol_2->rowCount(); ++i) {
-        for (int j = 0; j < ui->comboBox_firstYear_2->count(); ++j) {
-            if(ui->comboBox_firstYear_2->itemText(j)==ui->tableWidget_lastProtocol_2->item(i,2)->text()){
-                flag1=true;
-            }
-        }
-        if(!flag1){
-            ui->comboBox_firstYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-            ui->comboBox_secondYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-            ui->comboBox_thirdYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-            ui->comboBox_fourthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-            ui->comboBox_fifthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-        }
-        flag1=false;
-    }
+    //    for (int i = 0; i < ui->tableWidget_lastProtocol_2->rowCount(); ++i) {
+    //        for (int j = 0; j < ui->comboBox_firstYear_2->count(); ++j) {
+    //            if(ui->comboBox_firstYear_2->itemText(j)==ui->tableWidget_lastProtocol_2->item(i,2)->text()){
+    //                flag1=true;
+    //            }
+    //        }
+    //        if(!flag1){
+    //            ui->comboBox_firstYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_secondYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_thirdYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_fourthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_fifthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+    //        }
+    //        flag1=false;
+    //    }
     ui->tableWidget_lastProtocol_2->resizeRowsToContents();
     ui->tableWidget_lastProtocol_2->resizeColumnsToContents();
 }

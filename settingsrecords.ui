@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Рекорди</string>
   </property>
   <widget class="QTabWidget" name="tabWidget_25or50">
    <property name="geometry">
@@ -938,7 +938,7 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QLineEdit" name="lineEdit_50m_complex_men100">
+           <widget class="QLineEdit" name="lineEdit_50m_complex_men4x100">
             <property name="text">
              <string>03:27.28</string>
             </property>
@@ -1957,7 +1957,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_31">
         <attribute name="title">
