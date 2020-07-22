@@ -65,8 +65,10 @@ void CreateForm::on_pushButton_AddPerson_clicked()
 
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,7,  new QTableWidgetItem(ui->comboBox_minutes->currentText()+":"+ui->comboBox_seconds->currentText()+ "." +ui->comboBox_miliseconds->currentText()));
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,8,  new QTableWidgetItem(ui->lineEdit_Coach_CreateForm->text()));
-
-                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(К)"));
+                if(ui->checkBox_personalOrTeam->isChecked() && ui->lineEdit_customTeam->text()!=""){
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(К)"));
+                }
+                else ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()));
 
 
                 if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() != "" && ui->lineEdit_country->text()!=""){

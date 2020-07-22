@@ -48,9 +48,15 @@ StartingProtocol::StartingProtocol(QWidget *parent) :
         QFile file(iTR.next());
         if (file.open(QIODevice::ReadOnly))
         {
+            if(!file.fileName().contains("4x")){
             ui->comboBox_protocolFiles->addItem(file.fileName() ,QVariant::Int);
+            }
+            else if(file.fileName().contains("4x")){
+                ui->comboBox_protocolFiles_2->addItem(file.fileName() ,QVariant::Int);
+            }
             file.close();
             ui->tableWidget_lastProtocol->verticalHeader()->hide();
+            ui->tableWidget_lastProtocol_2->verticalHeader()->hide();
         }
     }
 }
@@ -3135,6 +3141,84 @@ void StartingProtocol::on_pushButton_clearTableReiting_clicked()
     }
     else
         msgBox.close();
+    ui->comboBox_category->clear();
+    ui->comboBox_category->addItem("",QVariant::Int);
+    bool flag = false;
+    for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
+        for (int j = 0; j < ui->comboBox_category->count(); ++j) {
+            if(ui->tableWidget_startReiting->item(i,7)->text().contains("(ПК)")){
+                if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(ПК)").join("")){
+                    flag=true;
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(Б)")){
+                if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(Б)").join("")){
+                    flag=true;
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(К)")){
+                if(ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЧ(К)")
+                        || ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЖ(К)")){
+                    if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("Ч(К)").join("")){
+                        flag=true;
+                    }
+                    else if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("Ж(К)").join("")){
+                        flag=true;
+                    }
+                    else if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(К)").join("")){
+                        flag=true;
+                    }
+                }
+                else {
+                    if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(К)").join("")){
+                        flag=true;
+                    }
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(КБ)")){
+                if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(КБ)").join("")){
+                    flag=true;
+                }
+            }
+            else if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text())
+            {
+                flag=true;
+            }
+        }
+        if(!flag){
+            if(ui->tableWidget_startReiting->item(i,7)->text().contains("(ПК)")){
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(ПК)").join(""),QVariant::Int);
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(К)")){
+                if(ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЧ(К)")){
+
+                    ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("Ч(К)").join(""),QVariant::Int);
+                }
+                else if(ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЖ(К)")){
+
+                    ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("Ж(К)").join(""),QVariant::Int);
+                }
+                else {
+
+                    ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(К)").join(""),QVariant::Int);
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(Б)")){
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(Б)").join(""),QVariant::Int);
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(КБ)")){
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(КБ)").join(""),QVariant::Int);
+            }
+            else{
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text(),QVariant::Int);
+            }
+        }
+        flag=false;
+    }
 }
 
 void StartingProtocol::on_pushButton_deleteRow_clicked()
@@ -3206,6 +3290,84 @@ void StartingProtocol::on_pushButton_deleteRow_clicked()
             countOfTableProtocol++;
             ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTableProtocol));
         }
+    }
+    ui->comboBox_category->clear();
+    ui->comboBox_category->addItem("",QVariant::Int);
+    bool flag = false;
+    for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
+        for (int j = 0; j < ui->comboBox_category->count(); ++j) {
+            if(ui->tableWidget_startReiting->item(i,7)->text().contains("(ПК)")){
+                if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(ПК)").join("")){
+                    flag=true;
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(Б)")){
+                if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(Б)").join("")){
+                    flag=true;
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(К)")){
+                if(ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЧ(К)")
+                        || ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЖ(К)")){
+                    if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("Ч(К)").join("")){
+                        flag=true;
+                    }
+                    else if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("Ж(К)").join("")){
+                        flag=true;
+                    }
+                    else if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(К)").join("")){
+                        flag=true;
+                    }
+                }
+                else {
+                    if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(К)").join("")){
+                        flag=true;
+                    }
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(КБ)")){
+                if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text().split("(КБ)").join("")){
+                    flag=true;
+                }
+            }
+            else if(ui->comboBox_category->itemText(j)==ui->tableWidget_startReiting->item(i,7)->text())
+            {
+                flag=true;
+            }
+        }
+        if(!flag){
+            if(ui->tableWidget_startReiting->item(i,7)->text().contains("(ПК)")){
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(ПК)").join(""),QVariant::Int);
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(К)")){
+                if(ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЧ(К)")){
+
+                    ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("Ч(К)").join(""),QVariant::Int);
+                }
+                else if(ui->tableWidget_startReiting->item(i,7)->text().contains("ЗмЖ(К)")){
+
+                    ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("Ж(К)").join(""),QVariant::Int);
+                }
+                else {
+
+                    ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(К)").join(""),QVariant::Int);
+                }
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(Б)")){
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(Б)").join(""),QVariant::Int);
+            }
+            else if(ui->tableWidget_startReiting->item(i,7)->text().contains("(КБ)")){
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text().split("(КБ)").join(""),QVariant::Int);
+            }
+            else{
+
+                ui->comboBox_category->addItem(ui->tableWidget_startReiting->item(i,7)->text(),QVariant::Int);
+            }
+        }
+        flag=false;
     }
 }
 
@@ -4552,6 +4714,18 @@ void StartingProtocol::on_pushButton_DK_2_clicked()
     ui->tableWidget_startSwim_2->item(index1,8)->setText(ui->lineEdit_firstSportsmen->text()+'\n'+"ДК");
     ui->pushButton_update_2->clicked(true);
     ui->tableWidget_startSwim_2->item(index1,10)->setText("-");
+    ui->pushButton_update_2->clicked(true);
+    QFont font;
+    font.setBold(false);
+    ui->tableWidget_startSwim_2->item(index1,1)->setFont(font);
+    if(ui->tableWidget_startSwim_2->rowCount()-1!=index1){
+        if(ui->tableWidget_startSwim_2->item(index1+1,1)->text()==""){
+            index1 = index1+2;
+        }
+        else index1++;
+        QTableWidgetItem * itemNext =  ui->tableWidget_startSwim_2->item(index1,1);
+        on_tableWidget_startSwim_2_itemPressed(itemNext);
+    }
 }
 
 void StartingProtocol::on_pushButton_cleanProtocol_2_clicked()
@@ -4648,21 +4822,21 @@ void StartingProtocol::on_pushButton_createNewReiting_2_clicked()
         ui->tableWidget_lastProtocol_2->item(i,9)->setText(afterPoits.trimmed());
     }
 
-//    for (int i = 0; i < ui->tableWidget_lastProtocol_2->rowCount(); ++i) {
-//        for (int j = 0; j < ui->comboBox_firstYear_2->count(); ++j) {
-//            if(ui->comboBox_firstYear_2->itemText(j)==ui->tableWidget_lastProtocol_2->item(i,2)->text()){
-//                flag1=true;
-//            }
-//        }
-//        if(!flag1){
-//            ui->comboBox_firstYear_2->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-//            ui->comboBox_secondYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-//            ui->comboBox_thirdYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-//            ui->comboBox_fourthYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-//            ui->comboBox_fifthYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-//        }
-//        flag1=false;
-//    }
+    //    for (int i = 0; i < ui->tableWidget_lastProtocol_2->rowCount(); ++i) {
+    //        for (int j = 0; j < ui->comboBox_firstYear_2->count(); ++j) {
+    //            if(ui->comboBox_firstYear_2->itemText(j)==ui->tableWidget_lastProtocol_2->item(i,2)->text()){
+    //                flag1=true;
+    //            }
+    //        }
+    //        if(!flag1){
+    //            ui->comboBox_firstYear_2->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_secondYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_thirdYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_fourthYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
+    //            ui->comboBox_fifthYear->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
+    //        }
+    //        flag1=false;
+    //    }
 
     int countOfTableProtocol = 0;
     for (int i = 0;i<ui->tableWidget_lastProtocol_2->rowCount();i++) {
@@ -4722,6 +4896,7 @@ void StartingProtocol::on_pushButton_createNewReiting_2_clicked()
     }
 
 
+    ui->tableWidget_lastProtocol_2->resizeRowsToContents();
     ui->tableWidget_lastProtocol_2->resizeColumnsToContents();
 }
 
@@ -4980,7 +5155,6 @@ void StartingProtocol::on_pushButton_update_2_clicked()
                             ui->tableWidget_startSwim_2->item(i,9)->setText("б/р");
                             break;
                         }
-
                         else continue;
                     }
                 }
@@ -5067,7 +5241,7 @@ void StartingProtocol::on_pushButton_update_2_clicked()
                     }
                 }
 
-                               //-----------------------------------------Women-----------------------------------
+                //-----------------------------------------Women-----------------------------------
                 else if(ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,В.ст.,Ж")||
                         ui->tableWidget_startSwim_2->item(i,7)->text().contains("50,В.ст.,ЗмЖ")){
                     for(int j = 2; j < rank->ui->tableWidget_50Women->columnCount();j++){
@@ -5371,7 +5545,7 @@ void StartingProtocol::on_pushButton_update_2_clicked()
                     }
                 }
                 else ui->tableWidget_startSwim_2->item(i,9)->setText("-");
-//                ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
+                //                ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
             }
             //------------------------25m----------------------------
             else{
@@ -6241,18 +6415,66 @@ void StartingProtocol::on_pushButton_sortByYears_2_clicked()
 
 void StartingProtocol::on_pushButton_openFileProtocol_2_clicked()
 {
+    ui->tableWidget_lastProtocol_2->clearContents();
+    ui->tableWidget_lastProtocol_2->setRowCount(0);
+    QString fileName = ui->comboBox_protocolFiles_2->currentText();
+    if (fileName.isEmpty())
+        return;
+    else
+    {
+        QFile file(fileName);
+        QFileInfo fileInfo(file.fileName());
+        QString filename(fileInfo.fileName());
+        ui->lineEdit_styleProtocol->setText(filename.remove(".prot").remove(".tm").remove(".mf").remove("User\\"));
+        if (file.open(QIODevice::ReadOnly))
+        {
+            QDataStream stream(&file);
+            qint32 row, column;
+            stream >> row >> column;
+            int countRow = ui->tableWidget_lastProtocol_2->rowCount();
+            ui->tableWidget_lastProtocol_2->setRowCount(row+countRow);
+            ui->tableWidget_lastProtocol_2->setColumnCount(column);
 
+            for (int i = countRow; i < row+countRow; ++i){
+                for (int j = 0; j < 11; j++)
+                {
+
+                    ui->tableWidget_lastProtocol_2->setItem(i,j,new QTableWidgetItem);
+                    ui->tableWidget_lastProtocol_2->item(i,j)->read(stream);
+                }
+            }
+            file.close();
+            ui->tableWidget_lastProtocol_2->verticalHeader()->hide();
+        }
+    }
+    bool flag1 = false;
+    for (int i = 0; i < ui->tableWidget_lastProtocol_2->rowCount(); ++i) {
+        for (int j = 0; j < ui->comboBox_firstYear_2->count(); ++j) {
+            if(ui->comboBox_firstYear_2->itemText(j)==ui->tableWidget_lastProtocol_2->item(i,2)->text()){
+                flag1=true;
+            }
+        }
+        if(!flag1){
+            ui->comboBox_firstYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+            ui->comboBox_secondYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+            ui->comboBox_thirdYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+            ui->comboBox_fourthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+            ui->comboBox_fifthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
+        }
+        flag1=false;
+    }
+    ui->tableWidget_lastProtocol_2->resizeRowsToContents();
+    ui->tableWidget_lastProtocol_2->resizeColumnsToContents();
 }
 
 void StartingProtocol::on_comboBox_protocolFiles_2_currentTextChanged(const QString &arg1)
 {
-
+    ui->pushButton_openFileProtocol_2->clicked(true);
 }
 
 void StartingProtocol::on_comboBox_swimPool_2_currentTextChanged(const QString &arg1)
 {
     ui->pushButton_update_2->clicked(true);
-
 }
 
 void StartingProtocol::on_pushButton_goToTeams_2_clicked()
@@ -6510,11 +6732,19 @@ void StartingProtocol::on_comboBox_category_currentTextChanged(const QString &ar
     }
     if(ui->comboBox_category->currentText() != ""){
         for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-            if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
-                ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
+            if(ui->tableWidget_startReiting->item(i,7)->text().contains("4x")){
+                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())
+                        || !ui->comboBox_category->currentText().contains("4x")){
+                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
+                }
             }
-
+            else {
+                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
+                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
+                }
+            }
         }
+
         ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
         for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
 
@@ -6526,3 +6756,4 @@ void StartingProtocol::on_comboBox_category_currentTextChanged(const QString &ar
     }
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
+
