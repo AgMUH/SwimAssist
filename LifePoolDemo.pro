@@ -47,3 +47,15 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+VERSION = 1.0.0.1
+#QMAKE_TARGET_COMPANY = Company
+QMAKE_TARGET_PRODUCT = Swim Assistant
+#QMAKE_TARGET_DESCRIPTION
+#QMAKE_TARGET_COPYRIGHT =
+
+RESOURCES += \
+    ../build-LifePoolDemo-Desktop_Qt_5_15_0_MinGW_32_bit-Release/release/img/images.qrc
+RC_ICONS = SA_icon.ico

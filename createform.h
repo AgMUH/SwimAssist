@@ -28,6 +28,8 @@ private slots:
     void on_pushButton_deleteRow_clicked();
     void on_checkBox_personalOrTeam_clicked(bool checked);
 
+    void on_lineEdit_findHuman_textChanged(const QString &arg1);
+
 signals:
     void firstWindow();
 private:

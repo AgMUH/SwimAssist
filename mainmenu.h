@@ -22,8 +22,11 @@ private slots:
     void on_pushButton_SettingsRecords_clicked();
     void on_pushButton_startingProtocol_clicked();
     void on_pushButton_sportRank_clicked();
+    void on_pushButton_backToAuthorization_clicked();
+signals:
+    void AuthorizationMenu();
 private:
-    CreateForm *newCreateForm;
+    CreateForm * newCreateForm;
     StartingProtocol *startingProtocol;
     RankSettings * rankSettings;
 };

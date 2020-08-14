@@ -41,8 +41,10 @@ void CreateForm::on_pushButton_AddPerson_clicked()
         if(ui->comboBox_meter->currentText().contains("4x")){
 
             QString teamName = "("+ui->lineEdit_customTeam->text().simplified()+")";
+            QString teamDistance = ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText();
             for (int i = 0;i<ui->tableWidget->rowCount();i++) {
-                if(ui->tableWidget->item(i,5)->text().contains(teamName)){
+                if(ui->tableWidget->item(i,5)->text().contains(teamName)
+                        && ui->tableWidget->item(i,6)->text().contains(teamDistance)){
                     teamContainsed=true;
                     rowOfTeam=i;
                     break;
@@ -58,17 +60,30 @@ void CreateForm::on_pushButton_AddPerson_clicked()
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,1,  new QTableWidgetItem(ui->spinBox_Year->text()));
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,2,  new QTableWidgetItem(ui->comboBox_rank->currentText()));
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,4,  new QTableWidgetItem(ui->lineEdit_dst->text()));
-                if(ui->checkBox_personalOrTeam->isChecked()){
+                if(ui->checkBox_personalOrTeam->isChecked() && !ui->checkBox_outOfCompetition->isChecked()){
                     ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,5,  new QTableWidgetItem(ui->lineEdit_school->text().simplified()+"("+ui->lineEdit_customTeam->text().simplified()+")"));
                 }
                 else ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,5,  new QTableWidgetItem(ui->lineEdit_school->text().simplified()));
 
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,7,  new QTableWidgetItem(ui->comboBox_minutes->currentText()+":"+ui->comboBox_seconds->currentText()+ "." +ui->comboBox_miliseconds->currentText()));
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,8,  new QTableWidgetItem(ui->lineEdit_Coach_CreateForm->text()));
-                if(ui->checkBox_personalOrTeam->isChecked() && ui->lineEdit_customTeam->text()!=""){
+
+                if(ui->checkBox_outOfCompetition->isChecked()){ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+
+                                                                                                                                                                              ","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(ПК)"));}
+                else if(ui->checkBox_personalOrTeam->isChecked() && ui->checkBox_manyFights->isChecked())
+                {
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(КБ)"));
+                }
+                else if(ui->checkBox_personalOrTeam->isChecked() && !ui->checkBox_manyFights->isChecked())
+                {
                     ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(К)"));
                 }
+                else if(ui->checkBox_manyFights->isChecked()){
+                    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()+"(Б)"));
+                }
                 else ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,6,  new QTableWidgetItem(ui->comboBox_meter->currentText()+","+ui->comboBox_style->currentText()+","+ui->comboBox_sex->currentText()));
+
+
 
 
                 if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() != "" && ui->lineEdit_country->text()!=""){
@@ -87,6 +102,7 @@ void CreateForm::on_pushButton_AddPerson_clicked()
 
                 ui->tableWidget->resizeRowsToContents();
                 ui->tableWidget->resizeColumnsToContents();
+                ui->tableWidget->scrollToBottom();
             }
             else{
                 QMessageBox::critical(this,"Помилка введення", "Введіть команду");
@@ -123,15 +139,20 @@ void CreateForm::on_pushButton_AddPerson_clicked()
                 else if(ui->lineEdit_city->text()!="" && ui->lineEdit_region->text() == "" && ui->lineEdit_country->text() !=""){
                     ui->tableWidget->setItem(rowOfTeam,3,new QTableWidgetItem(previousPeopleLocation+'\n'+ui->lineEdit_city->text()+",\n"+ui->lineEdit_country->text()));
                 }
+//                QTableWidgetItem * item = ui->tableWidget->item(ui->tableWidget->rowCount()-1,0);
 
                 ui->tableWidget->resizeRowsToContents();
                 ui->tableWidget->resizeColumnsToContents();
+                ui->tableWidget->scrollToBottom();
+//                ui->tableWidget->scrollToItem(item);
+
             }
             else{
                 QMessageBox::critical(this,"Помилка введення", "Введіть команду");
             }
         }
     }
+
 }
 
 
@@ -288,4 +309,15 @@ void CreateForm::on_checkBox_personalOrTeam_clicked(bool checked)
         ui->lineEdit_customTeam->setEnabled(true);
     }
     else ui->lineEdit_customTeam->setEnabled(false);
+}
+
+void CreateForm::on_lineEdit_findHuman_textChanged(const QString &arg1)
+{
+    for(int i=0;i<ui->tableWidget->rowCount();i++){
+        if(!ui->tableWidget->isRowHidden(i) && ui->tableWidget->item(i,0)->text().toLower().contains(ui->lineEdit_findHuman->text().toLower())
+                && ui->lineEdit_findHuman->text()!=""){
+            ui->tableWidget->item(i,0)->setBackgroundColor(Qt::darkGray);
+        }
+        else ui->tableWidget->item(i,0)->setBackgroundColor(Qt::white);
+    }
 }

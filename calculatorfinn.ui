@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
-    <height>439</height>
+    <width>580</width>
+    <height>321</height>
    </rect>
   </property>
   <property name="font">
@@ -18,71 +18,169 @@
   <property name="windowTitle">
    <string>Калькулятор ФІНА</string>
   </property>
-  <widget class="QPushButton" name="pushButton_calculate">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>330</y>
-     <width>851</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Обрахувати</string>
-   </property>
-  </widget>
-  <widget class="QSplitter" name="splitter">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>390</y>
-     <width>851</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <widget class="QLabel" name="label_7">
-    <property name="text">
-     <string>Базовий час:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_baseTime">
-    <property name="readOnly">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="text">
-     <string>Очки ФІНА:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_pointsFina">
-    <property name="readOnly">
-     <bool>false</bool>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>240</y>
-     <width>551</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Довжина басейну:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QComboBox" name="comboBox_lengthPool">
+     <item>
+      <property name="text">
+       <string>25м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>50м</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Стать:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QComboBox" name="comboBox_sex">
+     <item>
+      <property name="text">
+       <string>Ч</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ж</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Зм</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Дистанція:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QComboBox" name="comboBox_distance">
+     <item>
+      <property name="text">
+       <string>50м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>100м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>200м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>400м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>800м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1500м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4x50м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4x100м</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4x200м</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Стиль плавання:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QComboBox" name="comboBox_typeSwim">
+     <item>
+      <property name="text">
+       <string>Вільний стиль</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Брас</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Батерфляй</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>На спині</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Комплекс</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
      <widget class="QLabel" name="label_5">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>70</height>
+       </size>
+      </property>
       <property name="text">
        <string>Час плавання:</string>
       </property>
      </widget>
-    </item>
-    <item row="0" column="1">
      <widget class="QGroupBox" name="groupBox">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="title">
        <string>Хвилини</string>
       </property>
@@ -400,8 +498,6 @@
        </item>
       </widget>
      </widget>
-    </item>
-    <item row="0" column="2">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
@@ -723,8 +819,6 @@
        </item>
       </widget>
      </widget>
-    </item>
-    <item row="0" column="3">
      <widget class="QGroupBox" name="groupBox_3">
       <property name="title">
        <string>Мілісекунди</string>
@@ -1243,176 +1337,62 @@
        </item>
       </widget>
      </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>79</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Дистанція:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox_typeSwim">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>170</y>
-     <width>241</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Вільний стиль</string>
-    </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>Брас</string>
-    </property>
+   <item row="5" column="0" colspan="4">
+    <widget class="QPushButton" name="pushButton_calculate">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Обрахувати</string>
+     </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>Батерфляй</string>
-    </property>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Базовий час:</string>
+     </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>На спині</string>
-    </property>
+   <item row="6" column="1">
+    <widget class="QLineEdit" name="lineEdit_baseTime">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>Комплекс</string>
-    </property>
+   <item row="6" column="2">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Очки ФІНА:</string>
+     </property>
+    </widget>
    </item>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>180</y>
-     <width>123</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Стиль плавання:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox_distance">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>120</y>
-     <width>241</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>50м</string>
-    </property>
+   <item row="6" column="3">
+    <widget class="QLineEdit" name="lineEdit_pointsFina">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>100м</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>200м</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>400м</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>800м</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>1500м</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QComboBox" name="comboBox_sex">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>70</y>
-     <width>241</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Ч</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Ж</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>48</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Стать:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>135</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Довжина басейну:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox_lengthPool">
-   <property name="geometry">
-    <rect>
-     <x>619</x>
-     <y>20</y>
-     <width>241</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>25м</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>50м</string>
-    </property>
-   </item>
-  </widget>
+  </layout>
  </widget>
  <resources/>
  <connections/>

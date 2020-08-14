@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    mainMenu = new MainMenu();
+    connect(mainMenu, &MainMenu::AuthorizationMenu, this, &MainWindow::show);
 
 
 }
@@ -20,11 +22,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_SignIn_clicked()
 {
-    MainMenu * mainMenu = new MainMenu();
     QString login = ui->lineEdit_LogIn->text();
     QString password = ui->lineEdit_Password->text();
-    if((login == "Urri" && password == "Urri9")|| (login == "test" && password == "testswim"))
+    if((login == "Urri" && password == "Urri9")|| (login == "swim" && password == "0505387397"))
     {
+        mainMenu->ui->pushButton_startingProtocol->setEnabled(true);
+        mainMenu->ui->pushButton_sportRank->setEnabled(true);
+        mainMenu->ui->pushButton_SettingsRecords->setEnabled(true);
+        mainMenu->ui->pushButton_calculatorFin->setEnabled(true);
         mainMenu->show();
         this->close();
     }
@@ -36,7 +41,6 @@ void MainWindow::on_pushButton_SignIn_clicked()
 
 void MainWindow::on_pushButton_SignInGuest_clicked()
 {
-    MainMenu * mainMenu = new MainMenu();
     mainMenu->ui->pushButton_startingProtocol->setEnabled(false);
     mainMenu->ui->pushButton_sportRank->setEnabled(false);
     mainMenu->ui->pushButton_SettingsRecords->setEnabled(false);

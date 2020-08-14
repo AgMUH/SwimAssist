@@ -11,6 +11,7 @@ MainMenu::MainMenu(QWidget *parent) :
     ui->setupUi(this);
     newCreateForm = new CreateForm();
     connect(newCreateForm, &CreateForm::firstWindow, this, &MainMenu::show);
+
     startingProtocol = new StartingProtocol();
     connect(startingProtocol, &StartingProtocol::protocolWindow,this,&MainMenu::show);
 //    rankSettings = new RankSettings();
@@ -47,4 +48,10 @@ void MainMenu::on_pushButton_sportRank_clicked()
     RankSettings * rank = new RankSettings();
     rank->show();
 
+}
+
+void MainMenu::on_pushButton_backToAuthorization_clicked()
+{
+    this->close();
+    emit AuthorizationMenu();
 }

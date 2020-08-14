@@ -21,6 +21,7 @@ private slots:
     void on_pushButton_SignInGuest_clicked();
 
 private:
+    MainMenu * mainMenu;
     Ui::MainWindow *ui;
 };
 

@@ -23,8 +23,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>851</width>
-     <height>651</height>
+     <width>841</width>
+     <height>661</height>
     </rect>
    </property>
    <property name="font">
@@ -39,871 +39,867 @@
     <attribute name="title">
      <string>25м , Чоловіки</string>
     </attribute>
-    <widget class="QTableWidget" name="tableWidget_25Men">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>831</width>
-       <height>591</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <row>
-      <property name="text">
-       <string>50м (вільний стиль)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>100м (вільний стиль)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>200м (вільний стиль)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>400м (вільний стиль)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>800м (вільний стиль)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>1500м (вільний стиль)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>50м (на спині)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>100м (на спині)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>200м (на спині)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>50м (брас)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>100м (брас)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>200м (брас)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>50м (батерфляй)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>100м (батерфляй)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>200м (батерфляй)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>100м (компл. плав.)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>200м (компл. плав.)</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>400м (компл. плав.)</string>
-      </property>
-     </row>
-     <column>
-      <property name="text">
-       <string>МСМК</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>МС</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>КМС</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>I</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>II</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>III</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>I (ю)</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>II (ю)</string>
-      </property>
-     </column>
+    <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="0" column="1">
-      <property name="text">
-       <string>00:23.50</string>
-      </property>
-     </item>
-     <item row="0" column="2">
-      <property name="text">
-       <string>00:24.50</string>
-      </property>
-     </item>
-     <item row="0" column="3">
-      <property name="text">
-       <string>00:26.00</string>
-      </property>
-     </item>
-     <item row="0" column="4">
-      <property name="text">
-       <string>00:29.50</string>
-      </property>
-     </item>
-     <item row="0" column="5">
-      <property name="text">
-       <string>00:33.50</string>
-      </property>
-     </item>
-     <item row="0" column="6">
-      <property name="text">
-       <string>00:38.00</string>
-      </property>
-     </item>
-     <item row="0" column="7">
-      <property name="text">
-       <string>00:43.00</string>
-      </property>
-     </item>
-     <item row="1" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="1" column="1">
-      <property name="text">
-       <string>00:52.00</string>
-      </property>
-     </item>
-     <item row="1" column="2">
-      <property name="text">
-       <string>00:55.50</string>
-      </property>
-     </item>
-     <item row="1" column="3">
-      <property name="text">
-       <string>00:59.50</string>
-      </property>
-     </item>
-     <item row="1" column="4">
-      <property name="text">
-       <string>01:07.00</string>
-      </property>
-     </item>
-     <item row="1" column="5">
-      <property name="text">
-       <string>01:15.00</string>
-      </property>
-     </item>
-     <item row="1" column="6">
-      <property name="text">
-       <string>01:24.50</string>
-      </property>
-     </item>
-     <item row="1" column="7">
-      <property name="text">
-       <string>01:35.50</string>
-      </property>
-     </item>
-     <item row="2" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="2" column="1">
-      <property name="text">
-       <string>01:55.00</string>
-      </property>
-     </item>
-     <item row="2" column="2">
-      <property name="text">
-       <string>02:02.00</string>
-      </property>
-     </item>
-     <item row="2" column="3">
-      <property name="text">
-       <string>02:12.00</string>
-      </property>
-     </item>
-     <item row="2" column="4">
-      <property name="text">
-       <string>02:27.00</string>
-      </property>
-     </item>
-     <item row="2" column="5">
-      <property name="text">
-       <string>02:46.00</string>
-      </property>
-     </item>
-     <item row="2" column="6">
-      <property name="text">
-       <string>03:07.00</string>
-      </property>
-     </item>
-     <item row="2" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="3" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="3" column="1">
-      <property name="text">
-       <string>04:04.00</string>
-      </property>
-     </item>
-     <item row="3" column="2">
-      <property name="text">
-       <string>04:18.00</string>
-      </property>
-     </item>
-     <item row="3" column="3">
-      <property name="text">
-       <string>04:38.00</string>
-      </property>
-     </item>
-     <item row="3" column="4">
-      <property name="text">
-       <string>05:08.00</string>
-      </property>
-     </item>
-     <item row="3" column="5">
-      <property name="text">
-       <string>05:50.00</string>
-      </property>
-     </item>
-     <item row="3" column="6">
-      <property name="text">
-       <string>06:30.00</string>
-      </property>
-     </item>
-     <item row="3" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="4" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="4" column="1">
-      <property name="text">
-       <string>08:30.00</string>
-      </property>
-     </item>
-     <item row="4" column="2">
-      <property name="text">
-       <string>09:00.00</string>
-      </property>
-     </item>
-     <item row="4" column="3">
-      <property name="text">
-       <string>09:40.00</string>
-      </property>
-     </item>
-     <item row="4" column="4">
-      <property name="text">
-       <string>10:40.00</string>
-      </property>
-     </item>
-     <item row="4" column="5">
-      <property name="text">
-       <string>12:30.00</string>
-      </property>
-     </item>
-     <item row="4" column="6">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="4" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="5" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="5" column="1">
-      <property name="text">
-       <string>16:16.00</string>
-      </property>
-     </item>
-     <item row="5" column="2">
-      <property name="text">
-       <string>17:10.00</string>
-      </property>
-     </item>
-     <item row="5" column="3">
-      <property name="text">
-       <string>18:30.00</string>
-      </property>
-     </item>
-     <item row="5" column="4">
-      <property name="text">
-       <string>20:33.00</string>
-      </property>
-     </item>
-     <item row="5" column="5">
-      <property name="text">
-       <string>23:16.00</string>
-      </property>
-     </item>
-     <item row="5" column="6">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="5" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="6" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="6" column="1">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="6" column="2">
-      <property name="text">
-       <string>00:28.00</string>
-      </property>
-     </item>
-     <item row="6" column="3">
-      <property name="text">
-       <string>00:30.00</string>
-      </property>
-     </item>
-     <item row="6" column="4">
-      <property name="text">
-       <string>00:33.50</string>
-      </property>
-     </item>
-     <item row="6" column="5">
-      <property name="text">
-       <string>00:38.00</string>
-      </property>
-     </item>
-     <item row="6" column="6">
-      <property name="text">
-       <string>00:43.00</string>
-      </property>
-     </item>
-     <item row="6" column="7">
-      <property name="text">
-       <string>00:49.00</string>
-      </property>
-     </item>
-     <item row="7" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="7" column="1">
-      <property name="text">
-       <string>00:57.00</string>
-      </property>
-     </item>
-     <item row="7" column="2">
-      <property name="text">
-       <string>01:00.00</string>
-      </property>
-     </item>
-     <item row="7" column="3">
-      <property name="text">
-       <string>01:05.00</string>
-      </property>
-     </item>
-     <item row="7" column="4">
-      <property name="text">
-       <string>01:12.50</string>
-      </property>
-     </item>
-     <item row="7" column="5">
-      <property name="text">
-       <string>01:22.00</string>
-      </property>
-     </item>
-     <item row="7" column="6">
-      <property name="text">
-       <string>01:32.00</string>
-      </property>
-     </item>
-     <item row="7" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="8" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="8" column="1">
-      <property name="text">
-       <string>02:05.50</string>
-      </property>
-     </item>
-     <item row="8" column="2">
-      <property name="text">
-       <string>02:12.00</string>
-      </property>
-     </item>
-     <item row="8" column="3">
-      <property name="text">
-       <string>02:22.00</string>
-      </property>
-     </item>
-     <item row="8" column="4">
-      <property name="text">
-       <string>02:39.00</string>
-      </property>
-     </item>
-     <item row="8" column="5">
-      <property name="text">
-       <string>03:00.00</string>
-      </property>
-     </item>
-     <item row="8" column="6">
-      <property name="text">
-       <string>03:23.00</string>
-      </property>
-     </item>
-     <item row="8" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="9" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="9" column="1">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="9" column="2">
-      <property name="text">
-       <string>00:31.00</string>
-      </property>
-     </item>
-     <item row="9" column="3">
-      <property name="text">
-       <string>00:33.50</string>
-      </property>
-     </item>
-     <item row="9" column="4">
-      <property name="text">
-       <string>00:37.50</string>
-      </property>
-     </item>
-     <item row="9" column="5">
-      <property name="text">
-       <string>00:42.50</string>
-      </property>
-     </item>
-     <item row="9" column="6">
-      <property name="text">
-       <string>00:48.00</string>
-      </property>
-     </item>
-     <item row="9" column="7">
-      <property name="text">
-       <string>00:54.50</string>
-      </property>
-     </item>
-     <item row="10" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="10" column="1">
-      <property name="text">
-       <string>01:04.50</string>
-      </property>
-     </item>
-     <item row="10" column="2">
-      <property name="text">
-       <string>01:08.50</string>
-      </property>
-     </item>
-     <item row="10" column="3">
-      <property name="text">
-       <string>01:14.00</string>
-      </property>
-     </item>
-     <item row="10" column="4">
-      <property name="text">
-       <string>01:22.50</string>
-      </property>
-     </item>
-     <item row="10" column="5">
-      <property name="text">
-       <string>01:33.50</string>
-      </property>
-     </item>
-     <item row="10" column="6">
-      <property name="text">
-       <string>01:45.00</string>
-      </property>
-     </item>
-     <item row="10" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="11" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="11" column="1">
-      <property name="text">
-       <string>02:20.00</string>
-      </property>
-     </item>
-     <item row="11" column="2">
-      <property name="text">
-       <string>02:29.00</string>
-      </property>
-     </item>
-     <item row="11" column="3">
-      <property name="text">
-       <string>02:40.00</string>
-      </property>
-     </item>
-     <item row="11" column="4">
-      <property name="text">
-       <string>02:59.00</string>
-      </property>
-     </item>
-     <item row="11" column="5">
-      <property name="text">
-       <string>03:23.00</string>
-      </property>
-     </item>
-     <item row="11" column="6">
-      <property name="text">
-       <string>03:48.00</string>
-      </property>
-     </item>
-     <item row="11" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="12" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="12" column="1">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="12" column="2">
-      <property name="text">
-       <string>00:27.00</string>
-      </property>
-     </item>
-     <item row="12" column="3">
-      <property name="text">
-       <string>00:29.00</string>
-      </property>
-     </item>
-     <item row="12" column="4">
-      <property name="text">
-       <string>00:32.50</string>
-      </property>
-     </item>
-     <item row="12" column="5">
-      <property name="text">
-       <string>00:37.00</string>
-      </property>
-     </item>
-     <item row="12" column="6">
-      <property name="text">
-       <string>00:42.00</string>
-      </property>
-     </item>
-     <item row="12" column="7">
-      <property name="text">
-       <string>00:48.00</string>
-      </property>
-     </item>
-     <item row="13" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="13" column="1">
-      <property name="text">
-       <string>00:56.00</string>
-      </property>
-     </item>
-     <item row="13" column="2">
-      <property name="text">
-       <string>00:59.50</string>
-      </property>
-     </item>
-     <item row="13" column="3">
-      <property name="text">
-       <string>01:04.00</string>
-      </property>
-     </item>
-     <item row="13" column="4">
-      <property name="text">
-       <string>01:12.00</string>
-      </property>
-     </item>
-     <item row="13" column="5">
-      <property name="text">
-       <string>01:21.00</string>
-      </property>
-     </item>
-     <item row="13" column="6">
-      <property name="text">
-       <string>01:33.00</string>
-      </property>
-     </item>
-     <item row="13" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="14" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="14" column="1">
-      <property name="text">
-       <string>02:05.00</string>
-      </property>
-     </item>
-     <item row="14" column="2">
-      <property name="text">
-       <string>02:12.00</string>
-      </property>
-     </item>
-     <item row="14" column="3">
-      <property name="text">
-       <string>02:22.00</string>
-      </property>
-     </item>
-     <item row="14" column="4">
-      <property name="text">
-       <string>02:39.00</string>
-      </property>
-     </item>
-     <item row="14" column="5">
-      <property name="text">
-       <string>03:00.00</string>
-      </property>
-     </item>
-     <item row="14" column="6">
-      <property name="text">
-       <string>03:23.00</string>
-      </property>
-     </item>
-     <item row="14" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="15" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="15" column="1">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="15" column="2">
-      <property name="text">
-       <string>01:02.00</string>
-      </property>
-     </item>
-     <item row="15" column="3">
-      <property name="text">
-       <string>01:07.00</string>
-      </property>
-     </item>
-     <item row="15" column="4">
-      <property name="text">
-       <string>01:15.00</string>
-      </property>
-     </item>
-     <item row="15" column="5">
-      <property name="text">
-       <string>01:25.00</string>
-      </property>
-     </item>
-     <item row="15" column="6">
-      <property name="text">
-       <string>01:35.00</string>
-      </property>
-     </item>
-     <item row="15" column="7">
-      <property name="text">
-       <string>01:47.00</string>
-      </property>
-     </item>
-     <item row="16" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="16" column="1">
-      <property name="text">
-       <string>02:09.00</string>
-      </property>
-     </item>
-     <item row="16" column="2">
-      <property name="text">
-       <string>02:16.00</string>
-      </property>
-     </item>
-     <item row="16" column="3">
-      <property name="text">
-       <string>02:27.00</string>
-      </property>
-     </item>
-     <item row="16" column="4">
-      <property name="text">
-       <string>02:45.00</string>
-      </property>
-     </item>
-     <item row="16" column="5">
-      <property name="text">
-       <string>03:05.00</string>
-      </property>
-     </item>
-     <item row="16" column="6">
-      <property name="text">
-       <string>03:28.00</string>
-      </property>
-     </item>
-     <item row="16" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="17" column="0">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="17" column="1">
-      <property name="text">
-       <string>04:34.00</string>
-      </property>
-     </item>
-     <item row="17" column="2">
-      <property name="text">
-       <string>04:50.00</string>
-      </property>
-     </item>
-     <item row="17" column="3">
-      <property name="text">
-       <string>05:13.00</string>
-      </property>
-     </item>
-     <item row="17" column="4">
-      <property name="text">
-       <string>05:49.00</string>
-      </property>
-     </item>
-     <item row="17" column="5">
-      <property name="text">
-       <string>06:36.00</string>
-      </property>
-     </item>
-     <item row="17" column="6">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-     <item row="17" column="7">
-      <property name="text">
-       <string>-</string>
-      </property>
-     </item>
-    </widget>
+      <widget class="QTableWidget" name="tableWidget_25Men">
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <row>
+        <property name="text">
+         <string>50м (вільний стиль)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>100м (вільний стиль)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>200м (вільний стиль)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>400м (вільний стиль)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>800м (вільний стиль)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>1500м (вільний стиль)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>50м (на спині)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>100м (на спині)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>200м (на спині)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>50м (брас)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>100м (брас)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>200м (брас)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>50м (батерфляй)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>100м (батерфляй)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>200м (батерфляй)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>100м (компл. плав.)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>200м (компл. плав.)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>400м (компл. плав.)</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>МСМК</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>МС</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>КМС</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>I</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>II</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>III</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>I (ю)</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>II (ю)</string>
+        </property>
+       </column>
+       <item row="0" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="0" column="1">
+        <property name="text">
+         <string>00:23.50</string>
+        </property>
+       </item>
+       <item row="0" column="2">
+        <property name="text">
+         <string>00:24.50</string>
+        </property>
+       </item>
+       <item row="0" column="3">
+        <property name="text">
+         <string>00:26.00</string>
+        </property>
+       </item>
+       <item row="0" column="4">
+        <property name="text">
+         <string>00:29.50</string>
+        </property>
+       </item>
+       <item row="0" column="5">
+        <property name="text">
+         <string>00:33.50</string>
+        </property>
+       </item>
+       <item row="0" column="6">
+        <property name="text">
+         <string>00:38.00</string>
+        </property>
+       </item>
+       <item row="0" column="7">
+        <property name="text">
+         <string>00:43.00</string>
+        </property>
+       </item>
+       <item row="1" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="1" column="1">
+        <property name="text">
+         <string>00:52.00</string>
+        </property>
+       </item>
+       <item row="1" column="2">
+        <property name="text">
+         <string>00:55.50</string>
+        </property>
+       </item>
+       <item row="1" column="3">
+        <property name="text">
+         <string>00:59.50</string>
+        </property>
+       </item>
+       <item row="1" column="4">
+        <property name="text">
+         <string>01:07.00</string>
+        </property>
+       </item>
+       <item row="1" column="5">
+        <property name="text">
+         <string>01:15.00</string>
+        </property>
+       </item>
+       <item row="1" column="6">
+        <property name="text">
+         <string>01:24.50</string>
+        </property>
+       </item>
+       <item row="1" column="7">
+        <property name="text">
+         <string>01:35.50</string>
+        </property>
+       </item>
+       <item row="2" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="2" column="1">
+        <property name="text">
+         <string>01:55.00</string>
+        </property>
+       </item>
+       <item row="2" column="2">
+        <property name="text">
+         <string>02:02.00</string>
+        </property>
+       </item>
+       <item row="2" column="3">
+        <property name="text">
+         <string>02:12.00</string>
+        </property>
+       </item>
+       <item row="2" column="4">
+        <property name="text">
+         <string>02:27.00</string>
+        </property>
+       </item>
+       <item row="2" column="5">
+        <property name="text">
+         <string>02:46.00</string>
+        </property>
+       </item>
+       <item row="2" column="6">
+        <property name="text">
+         <string>03:07.00</string>
+        </property>
+       </item>
+       <item row="2" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="3" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="3" column="1">
+        <property name="text">
+         <string>04:04.00</string>
+        </property>
+       </item>
+       <item row="3" column="2">
+        <property name="text">
+         <string>04:18.00</string>
+        </property>
+       </item>
+       <item row="3" column="3">
+        <property name="text">
+         <string>04:38.00</string>
+        </property>
+       </item>
+       <item row="3" column="4">
+        <property name="text">
+         <string>05:08.00</string>
+        </property>
+       </item>
+       <item row="3" column="5">
+        <property name="text">
+         <string>05:50.00</string>
+        </property>
+       </item>
+       <item row="3" column="6">
+        <property name="text">
+         <string>06:30.00</string>
+        </property>
+       </item>
+       <item row="3" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="4" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="4" column="1">
+        <property name="text">
+         <string>08:30.00</string>
+        </property>
+       </item>
+       <item row="4" column="2">
+        <property name="text">
+         <string>09:00.00</string>
+        </property>
+       </item>
+       <item row="4" column="3">
+        <property name="text">
+         <string>09:40.00</string>
+        </property>
+       </item>
+       <item row="4" column="4">
+        <property name="text">
+         <string>10:40.00</string>
+        </property>
+       </item>
+       <item row="4" column="5">
+        <property name="text">
+         <string>12:30.00</string>
+        </property>
+       </item>
+       <item row="4" column="6">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="4" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="5" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="5" column="1">
+        <property name="text">
+         <string>16:16.00</string>
+        </property>
+       </item>
+       <item row="5" column="2">
+        <property name="text">
+         <string>17:10.00</string>
+        </property>
+       </item>
+       <item row="5" column="3">
+        <property name="text">
+         <string>18:30.00</string>
+        </property>
+       </item>
+       <item row="5" column="4">
+        <property name="text">
+         <string>20:33.00</string>
+        </property>
+       </item>
+       <item row="5" column="5">
+        <property name="text">
+         <string>23:16.00</string>
+        </property>
+       </item>
+       <item row="5" column="6">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="5" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="6" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="6" column="1">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="6" column="2">
+        <property name="text">
+         <string>00:28.00</string>
+        </property>
+       </item>
+       <item row="6" column="3">
+        <property name="text">
+         <string>00:30.00</string>
+        </property>
+       </item>
+       <item row="6" column="4">
+        <property name="text">
+         <string>00:33.50</string>
+        </property>
+       </item>
+       <item row="6" column="5">
+        <property name="text">
+         <string>00:38.00</string>
+        </property>
+       </item>
+       <item row="6" column="6">
+        <property name="text">
+         <string>00:43.00</string>
+        </property>
+       </item>
+       <item row="6" column="7">
+        <property name="text">
+         <string>00:49.00</string>
+        </property>
+       </item>
+       <item row="7" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="7" column="1">
+        <property name="text">
+         <string>00:57.00</string>
+        </property>
+       </item>
+       <item row="7" column="2">
+        <property name="text">
+         <string>01:00.00</string>
+        </property>
+       </item>
+       <item row="7" column="3">
+        <property name="text">
+         <string>01:05.00</string>
+        </property>
+       </item>
+       <item row="7" column="4">
+        <property name="text">
+         <string>01:12.50</string>
+        </property>
+       </item>
+       <item row="7" column="5">
+        <property name="text">
+         <string>01:22.00</string>
+        </property>
+       </item>
+       <item row="7" column="6">
+        <property name="text">
+         <string>01:32.00</string>
+        </property>
+       </item>
+       <item row="7" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="8" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="8" column="1">
+        <property name="text">
+         <string>02:05.50</string>
+        </property>
+       </item>
+       <item row="8" column="2">
+        <property name="text">
+         <string>02:12.00</string>
+        </property>
+       </item>
+       <item row="8" column="3">
+        <property name="text">
+         <string>02:22.00</string>
+        </property>
+       </item>
+       <item row="8" column="4">
+        <property name="text">
+         <string>02:39.00</string>
+        </property>
+       </item>
+       <item row="8" column="5">
+        <property name="text">
+         <string>03:00.00</string>
+        </property>
+       </item>
+       <item row="8" column="6">
+        <property name="text">
+         <string>03:23.00</string>
+        </property>
+       </item>
+       <item row="8" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="9" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="9" column="1">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="9" column="2">
+        <property name="text">
+         <string>00:31.00</string>
+        </property>
+       </item>
+       <item row="9" column="3">
+        <property name="text">
+         <string>00:33.50</string>
+        </property>
+       </item>
+       <item row="9" column="4">
+        <property name="text">
+         <string>00:37.50</string>
+        </property>
+       </item>
+       <item row="9" column="5">
+        <property name="text">
+         <string>00:42.50</string>
+        </property>
+       </item>
+       <item row="9" column="6">
+        <property name="text">
+         <string>00:48.00</string>
+        </property>
+       </item>
+       <item row="9" column="7">
+        <property name="text">
+         <string>00:54.50</string>
+        </property>
+       </item>
+       <item row="10" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="10" column="1">
+        <property name="text">
+         <string>01:04.50</string>
+        </property>
+       </item>
+       <item row="10" column="2">
+        <property name="text">
+         <string>01:08.50</string>
+        </property>
+       </item>
+       <item row="10" column="3">
+        <property name="text">
+         <string>01:14.00</string>
+        </property>
+       </item>
+       <item row="10" column="4">
+        <property name="text">
+         <string>01:22.50</string>
+        </property>
+       </item>
+       <item row="10" column="5">
+        <property name="text">
+         <string>01:33.50</string>
+        </property>
+       </item>
+       <item row="10" column="6">
+        <property name="text">
+         <string>01:45.00</string>
+        </property>
+       </item>
+       <item row="10" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="11" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="11" column="1">
+        <property name="text">
+         <string>02:20.00</string>
+        </property>
+       </item>
+       <item row="11" column="2">
+        <property name="text">
+         <string>02:29.00</string>
+        </property>
+       </item>
+       <item row="11" column="3">
+        <property name="text">
+         <string>02:40.00</string>
+        </property>
+       </item>
+       <item row="11" column="4">
+        <property name="text">
+         <string>02:59.00</string>
+        </property>
+       </item>
+       <item row="11" column="5">
+        <property name="text">
+         <string>03:23.00</string>
+        </property>
+       </item>
+       <item row="11" column="6">
+        <property name="text">
+         <string>03:48.00</string>
+        </property>
+       </item>
+       <item row="11" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="12" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="12" column="1">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="12" column="2">
+        <property name="text">
+         <string>00:27.00</string>
+        </property>
+       </item>
+       <item row="12" column="3">
+        <property name="text">
+         <string>00:29.00</string>
+        </property>
+       </item>
+       <item row="12" column="4">
+        <property name="text">
+         <string>00:32.50</string>
+        </property>
+       </item>
+       <item row="12" column="5">
+        <property name="text">
+         <string>00:37.00</string>
+        </property>
+       </item>
+       <item row="12" column="6">
+        <property name="text">
+         <string>00:42.00</string>
+        </property>
+       </item>
+       <item row="12" column="7">
+        <property name="text">
+         <string>00:48.00</string>
+        </property>
+       </item>
+       <item row="13" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="13" column="1">
+        <property name="text">
+         <string>00:56.00</string>
+        </property>
+       </item>
+       <item row="13" column="2">
+        <property name="text">
+         <string>00:59.50</string>
+        </property>
+       </item>
+       <item row="13" column="3">
+        <property name="text">
+         <string>01:04.00</string>
+        </property>
+       </item>
+       <item row="13" column="4">
+        <property name="text">
+         <string>01:12.00</string>
+        </property>
+       </item>
+       <item row="13" column="5">
+        <property name="text">
+         <string>01:21.00</string>
+        </property>
+       </item>
+       <item row="13" column="6">
+        <property name="text">
+         <string>01:33.00</string>
+        </property>
+       </item>
+       <item row="13" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="14" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="14" column="1">
+        <property name="text">
+         <string>02:05.00</string>
+        </property>
+       </item>
+       <item row="14" column="2">
+        <property name="text">
+         <string>02:12.00</string>
+        </property>
+       </item>
+       <item row="14" column="3">
+        <property name="text">
+         <string>02:22.00</string>
+        </property>
+       </item>
+       <item row="14" column="4">
+        <property name="text">
+         <string>02:39.00</string>
+        </property>
+       </item>
+       <item row="14" column="5">
+        <property name="text">
+         <string>03:00.00</string>
+        </property>
+       </item>
+       <item row="14" column="6">
+        <property name="text">
+         <string>03:23.00</string>
+        </property>
+       </item>
+       <item row="14" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="15" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="15" column="1">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="15" column="2">
+        <property name="text">
+         <string>01:02.00</string>
+        </property>
+       </item>
+       <item row="15" column="3">
+        <property name="text">
+         <string>01:07.00</string>
+        </property>
+       </item>
+       <item row="15" column="4">
+        <property name="text">
+         <string>01:15.00</string>
+        </property>
+       </item>
+       <item row="15" column="5">
+        <property name="text">
+         <string>01:25.00</string>
+        </property>
+       </item>
+       <item row="15" column="6">
+        <property name="text">
+         <string>01:35.00</string>
+        </property>
+       </item>
+       <item row="15" column="7">
+        <property name="text">
+         <string>01:47.00</string>
+        </property>
+       </item>
+       <item row="16" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="16" column="1">
+        <property name="text">
+         <string>02:09.00</string>
+        </property>
+       </item>
+       <item row="16" column="2">
+        <property name="text">
+         <string>02:16.00</string>
+        </property>
+       </item>
+       <item row="16" column="3">
+        <property name="text">
+         <string>02:27.00</string>
+        </property>
+       </item>
+       <item row="16" column="4">
+        <property name="text">
+         <string>02:45.00</string>
+        </property>
+       </item>
+       <item row="16" column="5">
+        <property name="text">
+         <string>03:05.00</string>
+        </property>
+       </item>
+       <item row="16" column="6">
+        <property name="text">
+         <string>03:28.00</string>
+        </property>
+       </item>
+       <item row="16" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="17" column="0">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="17" column="1">
+        <property name="text">
+         <string>04:34.00</string>
+        </property>
+       </item>
+       <item row="17" column="2">
+        <property name="text">
+         <string>04:50.00</string>
+        </property>
+       </item>
+       <item row="17" column="3">
+        <property name="text">
+         <string>05:13.00</string>
+        </property>
+       </item>
+       <item row="17" column="4">
+        <property name="text">
+         <string>05:49.00</string>
+        </property>
+       </item>
+       <item row="17" column="5">
+        <property name="text">
+         <string>06:36.00</string>
+        </property>
+       </item>
+       <item row="17" column="6">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+       <item row="17" column="7">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">

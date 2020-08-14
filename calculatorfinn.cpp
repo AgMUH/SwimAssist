@@ -87,6 +87,24 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_freestyle_men1500->text());
                     points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_men1500->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_men4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_freestyle_men4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_men4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x200м"){
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_men4x200->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_freestyle_men4x200->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_men4x200->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
             }
             else if(typeSwim == "Брас"){
                 if(distance=="50м"){
@@ -194,6 +212,15 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_complex_men400->text());
                     points = 1000* pow(((finn->ui->lineEdit_50m_complex_men400->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_complex_men4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_complex_men4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_complex_men4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
             }
         }
         //------------------------Ж---------------------------
@@ -250,6 +277,24 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     seconds = seconds + milisec/100;
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_freestyle_women1500->text());
                     points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_women1500->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_women4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_freestyle_women4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_women4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x200м"){
+                    recSeconds = finn->ui->lineEdit_50m_freestyle_women4x200->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_freestyle_women4x200->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_freestyle_women4x200->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
             }
             else if(typeSwim == "Брас"){
@@ -358,6 +403,39 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_complex_women400->text());
                     points = 1000* pow(((finn->ui->lineEdit_50m_complex_women400->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_complex_women4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_complex_women4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_complex_women4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+            }
+        }
+        else if(gender == "Зм"){
+            if(typeSwim == "Вільний стиль"){
+                if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_Freestyle_Mixed_4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_Freestyle_Mixed_4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_Freestyle_Mixed_4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+            }
+            else if(typeSwim == "Комплекс"){
+                if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_complex_Mixed_4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_complex_Mixed_4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_complex_Mixed_4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
             }
         }
     }
@@ -417,6 +495,33 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     seconds = seconds + milisec/100;
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_men1500->text());
                     points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men1500->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x50м"){
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_men4x50->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_men4x50->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men4x50->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_men4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_men4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x200м"){
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_men4x200->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_men4x200->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_men4x200->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
             }
             else if(typeSwim == "Брас"){
@@ -525,6 +630,24 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_complex_men400->text());
                     points = 1000* pow(((finn->ui->lineEdit_25m_complex_men400->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
+                else if(distance=="4x50м"){
+                    recSeconds = finn->ui->lineEdit_25m_complex_men4x50->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_complex_men4x50->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_complex_men4x50->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_25m_complex_men4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_complex_men4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_complex_men4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
             }
         }
         //------------------------Ж---------------------------
@@ -581,6 +704,33 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     seconds = seconds + milisec/100;
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_women1500->text());
                     points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_women1500->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x50м"){
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_women4x50->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_women4x50->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_women4x50->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_women4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_women4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_women4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x200м"){
+                    recSeconds = finn->ui->lineEdit_25m_freestyle_women4x200->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_freestyle_women4x200->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_freestyle_women4x200->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
             }
             else if(typeSwim == "Брас"){
@@ -688,6 +838,66 @@ void CalculatorFinn::on_pushButton_calculate_clicked()
                     seconds = seconds + milisec/100;
                     ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_complex_women400->text());
                     points = 1000* pow(((finn->ui->lineEdit_25m_complex_women400->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x50м"){
+                    recSeconds = finn->ui->lineEdit_25m_complex_women4x50->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_complex_women4x50->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_complex_women4x50->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_25m_complex_women4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_complex_women4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_complex_women4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+            }
+        }
+        else if(gender == "Зм"){
+            if(typeSwim == "Вільний стиль"){
+                if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_Freestyle_Mixed_4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_Freestyle_Mixed_4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_Freestyle_Mixed_4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x50м"){
+                    recSeconds = finn->ui->lineEdit_25m_Freestyle_Mixed_4x50m->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_Freestyle_Mixed_4x50m->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_Freestyle_Mixed_4x50m->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+            }
+            else if(typeSwim == "Комплекс"){
+                if(distance=="4x100м"){
+                    recSeconds = finn->ui->lineEdit_50m_complex_Mixed_4x100->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_50m_complex_Mixed_4x100->text());
+                    points = 1000* pow(((finn->ui->lineEdit_50m_complex_Mixed_4x100->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
+                }
+                else if(distance=="4x50м"){
+                    recSeconds = finn->ui->lineEdit_25m_Complex_Mixed_4x50->text().mid(0,2).toDouble()*60;
+                    if(minutes!=0){
+                        seconds=seconds+(minutes*60);
+                    }
+                    seconds = seconds + milisec/100;
+                    ui->lineEdit_baseTime->setText(finn->ui->lineEdit_25m_Complex_Mixed_4x50->text());
+                    points = 1000* pow(((finn->ui->lineEdit_25m_Complex_Mixed_4x50->text().mid(3,7).toDouble() + recSeconds) / seconds),3);
                 }
             }
         }
