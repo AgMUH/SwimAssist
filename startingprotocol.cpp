@@ -6715,73 +6715,7 @@ void StartingProtocol::on_lineEdit_firstSportsmen_textChanged(const QString &arg
 
 void StartingProtocol::on_comboBox_category_currentTextChanged(const QString &arg1)
 {
-
-    int countNum=0;
-    if(ui->tableWidget_sortYears_4->rowCount()==0){
-
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-            ui->tableWidget_startReiting->setRowHidden(i,false);
-            ui->tableWidget_startReiting->item(i,0)->setText(QString::number(i+1));
-        }
-    }
-    if(ui->comboBox_category->currentText() != ""
-            && ui->comboBox_category->currentText() != "Ч"
-            && ui->comboBox_category->currentText() != "Ж"){
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-            if(ui->tableWidget_startReiting->item(i,7)->text().contains("4x")){
-                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())
-                        || !ui->comboBox_category->currentText().contains("4x")){
-                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
-                }
-            }
-            else {
-                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
-                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
-                }
-            }
-        }
-
-        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-
-            if(!ui->tableWidget_startReiting->isRowHidden(i)){
-                countNum++;
-                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
-            }
-        }
-        ui->pushButton_updateByYears_4->clicked(true);
-    }
-    else if(ui->comboBox_category->currentText() == "Ч"
-            || ui->comboBox_category->currentText() == "Ж"){
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-            if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
-                ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
-            }
-
-        }
-        for (int i=0; i<ui->tableWidget_startReiting->rowCount();i++) {
-            if(!ui->tableWidget_startReiting->isRowHidden(i)){
-                for (int j=ui->tableWidget_startReiting->rowCount()-1; j>i;j--) {
-                    if(!ui->tableWidget_startReiting->isRowHidden(j)){
-                        if(ui->tableWidget_startReiting->item(i,1)->text() == ui->tableWidget_startReiting->item(j,1)->text()){
-                            ui->tableWidget_startReiting->setRowHidden(j,true);
-                        }
-                    }
-                }
-            }
-        }
-
-        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-
-            if(!ui->tableWidget_startReiting->isRowHidden(i)){
-                countNum++;
-                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
-            }
-        }
-
-    }
-
+    updateRatingTable();
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
 
@@ -7134,7 +7068,7 @@ void StartingProtocol::on_pushButton_addSortYear_4_clicked()
         ui->tableWidget_sortYears_4->item(ui->tableWidget_sortYears_4->rowCount()-1,0)->setText(ui->comboBox_sortYear_4->currentText());
         ui->tableWidget_sortYears_4->item(ui->tableWidget_sortYears_4->rowCount()-1,0)->setTextAlignment(Qt::AlignHCenter);
     }
-    ui->pushButton_updateByYears_4->clicked(true);
+    updateRatingTable();
 }
 
 void StartingProtocol::on_pushButton_removeSortYear_4_clicked()
@@ -7154,7 +7088,7 @@ void StartingProtocol::on_pushButton_removeSortYear_4_clicked()
     else {
         QMessageBox::warning(this,"Помилка","Рік "+ ui->comboBox_sortYear_4->currentText() +" відсутній у таблиці!");
     }
-    ui->pushButton_updateByYears_4->clicked(true);
+    updateRatingTable();
 }
 
 void StartingProtocol::on_pushButton_clearSortTable_4_clicked()
@@ -7172,7 +7106,7 @@ void StartingProtocol::on_pushButton_clearSortTable_4_clicked()
     }
     else
         msgBox.close();
-    ui->pushButton_updateByYears_4->clicked(true);
+    updateRatingTable();
 }
 
 void StartingProtocol::on_pushButton_updateByYears_4_clicked()
@@ -7550,8 +7484,8 @@ void StartingProtocol::on_checkBox_personalOrTeam_clicked(bool checked)
 void StartingProtocol::on_lineEdit_findHuman_textChanged(const QString &arg1)
 {
     for(int i=0;i<ui->tableWidget_startReiting->rowCount();i++){
-        if(!ui->tableWidget_startReiting->isRowHidden(i) && ui->tableWidget_startReiting->item(i,1)->text().toLower().contains(ui->lineEdit_findHuman->text().toLower())
-                && ui->lineEdit_findHuman->text()!=""){
+        if(!ui->tableWidget_startReiting->isRowHidden(i) && ui->tableWidget_startReiting->item(i,1)->text().toLower().contains(arg1.toLower())
+                && arg1 !=""){
             ui->tableWidget_startReiting->item(i,1)->setBackground(Qt::darkGray);
         }
         else ui->tableWidget_startReiting->item(i,1)->setBackground(Qt::white);
@@ -7559,12 +7493,102 @@ void StartingProtocol::on_lineEdit_findHuman_textChanged(const QString &arg1)
 }
 
 void StartingProtocol::updateRatingTable(){
-    QTableWidget * tableRating = ui->tableWidget_startReiting;
-    setRatingTableRowHiddenFalse();
 
+    QTableWidget * tableRating = ui->tableWidget_startReiting;
+    QComboBox * comboBoxCategory = ui->comboBox_category;
+    setTableRowsHidden(tableRating, false);
+
+    if(comboBoxCategory->currentText()!="")
+    {
+        for (int i = 0; i < tableRating->rowCount(); ++i) {
+            if(tableRating->item(i,7)->text().contains("4x")){
+                if(!tableRating->item(i,7)->text().contains(comboBoxCategory->currentText())
+                        || !comboBoxCategory->currentText().contains("4x")){
+                    tableRating->verticalHeader()->hideSection(i);
+                }
+            }
+            else {
+                if(!tableRating->item(i,7)->text().contains(comboBoxCategory->currentText())){
+                    tableRating->verticalHeader()->hideSection(i);
+                }
+            }
+        }
+    }
+
+    if(comboBoxCategory->currentText()=="Ч" ||
+            comboBoxCategory->currentText()=="Ж")
+    {
+        for (int i = 0; i < tableRating->rowCount(); i++) {
+            if(!tableRating->isRowHidden(i)){
+                for (int j = tableRating->rowCount()-1; j > i; j--) {
+                    if(!tableRating->isRowHidden(j)){
+                        if(tableRating->item(i,1)->text() == tableRating->item(j,1)->text()){
+                            tableRating->setRowHidden(j,true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(ui->tableWidget_sortYears_4->rowCount()!=0){
+        bool isYearSuitable = false;
+        for (int i = 0; i < tableRating->rowCount(); i++) {
+            if(!tableRating->isRowHidden(i)){
+                for (int j = 0; j < ui->tableWidget_sortYears_4->rowCount(); j++) {
+                    if(tableRating->item(i,2)->text().contains(ui->tableWidget_sortYears_4->item(j,0)->text())){
+                        isYearSuitable=true;
+                        break;
+                    }
+                }
+
+                if(!isYearSuitable){
+                    tableRating->setRowHidden(i,true);
+                }
+                isYearSuitable=false;
+
+            }
+        }
+    }
+    tableRating->sortByColumn(8,Qt::AscendingOrder);
+    setRowsNumbering(tableRating);
+
+    //    if(   ui->comboBox_category->currentText() != ""
+    //          && ui->comboBox_category->currentText() != "Ч"
+    //          && ui->comboBox_category->currentText() != "Ж")
+    //    {
+    //        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
+    //            if(ui->tableWidget_startReiting->item(i,7)->text().contains("4x")){
+    //                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())
+    //                        || !ui->comboBox_category->currentText().contains("4x")){
+    //                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
+    //                }
+    //            }
+    //            else {
+    //                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
+    //                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
+    //                }
+    //            }
+    //        }
+    //        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
+    //        setRowsNumbering(tableRating);
+    //        ui->pushButton_updateByYears_4->clicked(true);
+    //    }
+    //    else if(ui->comboBox_category->currentText() == "Ч"
+    //            || ui->comboBox_category->currentText() == "Ж"){
+
+    //    }
 }
-void StartingProtocol::setRatingTableRowHiddenFalse(){ //makes all rows visible in rating table
-    for (int i = 0;i<ui->tableWidget_startReiting->rowCount();i++) {
-        ui->tableWidget_startReiting->setRowHidden(i,false);
+void StartingProtocol::setTableRowsHidden(QTableWidget * table, bool setHidden){   //function makes all rows visible in table
+    for (int i = 0;i < table->rowCount();i++) {
+        table->setRowHidden(i, setHidden);
+    }
+}
+void StartingProtocol::setRowsNumbering(QTableWidget * table){ // function assings numbers to visible table rows
+    int rowNumbering=0;
+    for (int i = 0; i < table->rowCount(); ++i) {
+        if(!table->isRowHidden(i)){
+            rowNumbering++;
+            table->item(i,0)->setText(QString::number(rowNumbering));
+        }
     }
 }

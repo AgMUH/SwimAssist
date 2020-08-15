@@ -109,7 +109,8 @@ private slots:
 
     void on_lineEdit_findHuman_textChanged(const QString &arg1);
     void updateRatingTable();
-    void setRatingTableRowHiddenFalse();
+    void setTableRowsHidden(QTableWidget * table,bool isHidden);
+    void setRowsNumbering(QTableWidget * table);
 private:
 
 };

@@ -41,7 +41,7 @@ void MainWindow::on_pushButton_SignIn_clicked()
 
 void MainWindow::on_pushButton_SignInGuest_clicked()
 {
-    mainMenu->ui->pushButton_startingProtocol->setEnabled(false);
+//    mainMenu->ui->pushButton_startingProtocol->setEnabled(false);
     mainMenu->ui->pushButton_sportRank->setEnabled(false);
     mainMenu->ui->pushButton_SettingsRecords->setEnabled(false);
     mainMenu->ui->pushButton_calculatorFin->setEnabled(false);
