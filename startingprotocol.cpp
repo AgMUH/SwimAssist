@@ -53,6 +53,7 @@ StartingProtocol::StartingProtocol(QWidget *parent) :
     ui->tableWidget_startSwim_2->setEditTriggers(0);
     ui->tableWidget_sortYears_4->setEditTriggers(0);
     ui->widget->hide();
+    ui->pushButton_addParticipant->clicked(true);
     QDirIterator iTR("User/", QDir::Files);
 
     while(iTR.hasNext()){
@@ -131,6 +132,7 @@ void StartingProtocol::on_pushButton_openFile_clicked()
             ui->tableWidget_startReiting->verticalHeader()->hide();
         }
         bool flag = false;
+
         for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
             for (int j = 0; j < ui->comboBox_category->count(); ++j) {
                 if(ui->tableWidget_startReiting->item(i,7)->text().contains("(ПК)")){
@@ -3300,6 +3302,8 @@ void StartingProtocol::on_pushButton_clearTableReiting_clicked()
         msgBox.close();
     ui->comboBox_category->clear();
     ui->comboBox_category->addItem("",QVariant::Int);
+    ui->comboBox_category->addItem("Ч",QVariant::Int);
+    ui->comboBox_category->addItem("Ж",QVariant::Int);
     bool flag = false;
     for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
         for (int j = 0; j < ui->comboBox_category->count(); ++j) {
@@ -3380,7 +3384,14 @@ void StartingProtocol::on_pushButton_clearTableReiting_clicked()
 
 void StartingProtocol::on_pushButton_deleteRow_clicked()
 {
-    if(ui->spinBox_deleteRow->value()!=0 && ui->spinBox_deleteRow->value() <= ui->tableWidget_startReiting->rowCount()){
+    QString distance = ui->comboBox_category->currentText();
+    int rowCount=0;
+    for(int i=0;i<ui->tableWidget_startReiting->rowCount();i++){
+        if(!ui->tableWidget_startReiting->isRowHidden(i)){
+            rowCount++;
+        }
+    }
+    if(ui->spinBox_deleteRow->value()!=0 && ui->spinBox_deleteRow->value() <= rowCount){
         QMessageBox msgBox;
 
         msgBox.setText("Видалити рядок " + ui->spinBox_deleteRow->text()+" ?");
@@ -3393,7 +3404,13 @@ void StartingProtocol::on_pushButton_deleteRow_clicked()
 
         if(ret==QMessageBox::Ok)
         {
-            ui->tableWidget_startReiting->removeRow(ui->spinBox_deleteRow->value()-1);
+            int rowIndex=-1;
+            for(int i=0;i<ui->tableWidget_startReiting->rowCount();i++){
+                if(!ui->tableWidget_startReiting->isRowHidden(i) && ui->tableWidget_startReiting->item(i,0)->text()==ui->spinBox_deleteRow->text()){
+                    rowIndex=i;
+                }
+            }
+            ui->tableWidget_startReiting->removeRow(rowIndex);
             QString summ;
             QString beforePointT="";
             for (int i=0;i<ui->tableWidget_startReiting->rowCount();i++) {
@@ -3450,6 +3467,9 @@ void StartingProtocol::on_pushButton_deleteRow_clicked()
     }
     ui->comboBox_category->clear();
     ui->comboBox_category->addItem("",QVariant::Int);
+    ui->comboBox_category->addItem("Ч",QVariant::Int);
+    ui->comboBox_category->addItem("Ж",QVariant::Int);
+
     bool flag = false;
     for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
         for (int j = 0; j < ui->comboBox_category->count(); ++j) {
@@ -3526,12 +3546,20 @@ void StartingProtocol::on_pushButton_deleteRow_clicked()
         }
         flag=false;
     }
+    for (int i=0;i<ui->comboBox_category->count();i++) {
+        if(ui->comboBox_category->itemText(i)==distance){
+            ui->comboBox_category->setCurrentIndex(i);
+            break;
+        }
+    }
 }
 
 
 
 void StartingProtocol::on_pushButton_addParticipant_clicked()
 {
+
+    ui->widget->setGeometry(ui->widget->x()-541,ui->widget->y(),541,471);
     ui->widget->show();
 }
 
@@ -3686,6 +3714,7 @@ void StartingProtocol::on_tableWidget_startSwim_itemPressed(QTableWidgetItem *it
 void StartingProtocol::on_pushButton_closeWidgetAddPerson_clicked()
 {
     ui->widget->hide();
+    ui->pushButton_addParticipant->clicked(true);
 }
 
 
@@ -4813,18 +4842,18 @@ void StartingProtocol::on_pushButton_copyTableSwim_2_clicked()
 
     for (int rowIndex = 0; rowIndex <table->rowCount(); rowIndex++) {
         if(!ui->tableWidget_startSwim_2->isRowHidden(rowIndex)){
-        for (int columnIndex = 0; columnIndex < 12; columnIndex++) {
+            for (int columnIndex = 0; columnIndex < 12; columnIndex++) {
 
-            if(columnIndex==7)continue;
-            QString text = table->item(rowIndex,columnIndex)->text();
-            selected_text.append(text);
-            text.replace("\n","<br>");
-            selected_text_as_html.append(text);
-            selected_text_as_html.append("</td><td>");
-            selected_text.append(QLatin1Char('\t'));
-        }
-        selected_text_as_html.append("</td></tr><tr><td>");
-        selected_text.append(QLatin1Char('\n'));
+                if(columnIndex==7)continue;
+                QString text = table->item(rowIndex,columnIndex)->text();
+                selected_text.append(text);
+                text.replace("\n","<br>");
+                selected_text_as_html.append(text);
+                selected_text_as_html.append("</td><td>");
+                selected_text.append(QLatin1Char('\t'));
+            }
+            selected_text_as_html.append("</td></tr><tr><td>");
+            selected_text.append(QLatin1Char('\n'));
         }
     }
     selected_text_as_html.append("</td></tr>");
@@ -6686,12 +6715,18 @@ void StartingProtocol::on_lineEdit_firstSportsmen_textChanged(const QString &arg
 
 void StartingProtocol::on_comboBox_category_currentTextChanged(const QString &arg1)
 {
+
     int countNum=0;
-    for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-        ui->tableWidget_startReiting->setRowHidden(i,false);
-        ui->tableWidget_startReiting->item(i,0)->setText(QString::number(i+1));
+    if(ui->tableWidget_sortYears_4->rowCount()==0){
+
+        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
+            ui->tableWidget_startReiting->setRowHidden(i,false);
+            ui->tableWidget_startReiting->item(i,0)->setText(QString::number(i+1));
+        }
     }
-    if(ui->comboBox_category->currentText() != ""){
+    if(ui->comboBox_category->currentText() != ""
+            && ui->comboBox_category->currentText() != "Ч"
+            && ui->comboBox_category->currentText() != "Ж"){
         for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
             if(ui->tableWidget_startReiting->item(i,7)->text().contains("4x")){
                 if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())
@@ -6714,8 +6749,39 @@ void StartingProtocol::on_comboBox_category_currentTextChanged(const QString &ar
                 ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
             }
         }
+        ui->pushButton_updateByYears_4->clicked(true);
     }
-    ui->pushButton_updateByYears_4->clicked(true);
+    else if(ui->comboBox_category->currentText() == "Ч"
+            || ui->comboBox_category->currentText() == "Ж"){
+        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
+            if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
+                ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
+            }
+
+        }
+        for (int i=0; i<ui->tableWidget_startReiting->rowCount();i++) {
+            if(!ui->tableWidget_startReiting->isRowHidden(i)){
+                for (int j=ui->tableWidget_startReiting->rowCount()-1; j>i;j--) {
+                    if(!ui->tableWidget_startReiting->isRowHidden(j)){
+                        if(ui->tableWidget_startReiting->item(i,1)->text() == ui->tableWidget_startReiting->item(j,1)->text()){
+                            ui->tableWidget_startReiting->setRowHidden(j,true);
+                        }
+                    }
+                }
+            }
+        }
+
+        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
+        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
+
+            if(!ui->tableWidget_startReiting->isRowHidden(i)){
+                countNum++;
+                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
+            }
+        }
+
+    }
+
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
 
@@ -7111,8 +7177,11 @@ void StartingProtocol::on_pushButton_clearSortTable_4_clicked()
 
 void StartingProtocol::on_pushButton_updateByYears_4_clicked()
 {
-    for (int i=0; i<ui->tableWidget_startReiting->rowCount();i++) {
-        ui->tableWidget_startReiting->setRowHidden(i,false);
+    if(ui->comboBox_category->currentText() != "Ч"
+            && ui->comboBox_category->currentText() != "Ж"){
+        for (int i=0; i<ui->tableWidget_startReiting->rowCount();i++) {
+            ui->tableWidget_startReiting->setRowHidden(i,false);
+        }
     }
     bool flag=false;
     for (int i=0; i < ui->tableWidget_startReiting->rowCount(); i++) {
@@ -7178,7 +7247,8 @@ void StartingProtocol::on_pushButton_updateByYears_4_clicked()
             }
         }
     }
-
+    QString comboBox_category= ui->comboBox_category->currentText();
+    ui->comboBox_category->setCurrentText(comboBox_category);
     ui->tableWidget_startReiting->resizeRowsToContents();
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
@@ -7188,6 +7258,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
     if(ui->lineEdit_dst->text() == "" || ui->lineEdit_city->text() == ""||ui->lineEdit_school->text() == ""||ui->lineEdit_FIO_Create_Form->text() == ""
             ||ui->lineEdit_Coach_CreateForm->text() == ""||ui->lineEdit_Name->text() == ""){
         QMessageBox::critical(this,"Помилка введення", "Заповніть необхідні поля!");
+        ui->widget->setHidden(false);
     }
     else{
         bool teamContainsed = false;
@@ -7261,6 +7332,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
                 ui->tableWidget_startReiting->resizeRowsToContents();
                 ui->tableWidget_startReiting->resizeColumnsToContents();
                 ui->widget->hide();
+                ui->pushButton_addParticipant->clicked(true);
             }
             else{
                 QMessageBox::critical(this,"Помилка введення", "Введіть команду");
@@ -7301,6 +7373,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
                 ui->tableWidget_startReiting->resizeRowsToContents();
                 ui->tableWidget_startReiting->resizeColumnsToContents();
                 ui->widget->hide();
+                ui->pushButton_addParticipant->clicked(true);
             }
             else{
                 QMessageBox::critical(this,"Помилка введення", "Введіть команду");
@@ -7441,7 +7514,28 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
             flag4=false;
         }
     }
+    if(ui->comboBox_category->currentText()=="Ч" || ui->comboBox_category->currentText()=="Ж"){
+        for (int i=0; i<ui->tableWidget_startReiting->rowCount();i++) {
+            if(!ui->tableWidget_startReiting->isRowHidden(i)){
+                for (int j=ui->tableWidget_startReiting->rowCount()-1; j>i;j--) {
+                    if(!ui->tableWidget_startReiting->isRowHidden(j)){
+                        if(ui->tableWidget_startReiting->item(i,1)->text() == ui->tableWidget_startReiting->item(j,1)->text()){
+                            ui->tableWidget_startReiting->setRowHidden(j,true);
+                        }
+                    }
+                }
+            }
+        }
+        int countNum = 0;
+        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
+        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
 
+            if(!ui->tableWidget_startReiting->isRowHidden(i)){
+                countNum++;
+                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
+            }
+        }
+    }
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
 
@@ -7458,8 +7552,19 @@ void StartingProtocol::on_lineEdit_findHuman_textChanged(const QString &arg1)
     for(int i=0;i<ui->tableWidget_startReiting->rowCount();i++){
         if(!ui->tableWidget_startReiting->isRowHidden(i) && ui->tableWidget_startReiting->item(i,1)->text().toLower().contains(ui->lineEdit_findHuman->text().toLower())
                 && ui->lineEdit_findHuman->text()!=""){
-            ui->tableWidget_startReiting->item(i,1)->setBackgroundColor(Qt::darkGray);
+            ui->tableWidget_startReiting->item(i,1)->setBackground(Qt::darkGray);
         }
-        else ui->tableWidget_startReiting->item(i,1)->setBackgroundColor(Qt::white);
+        else ui->tableWidget_startReiting->item(i,1)->setBackground(Qt::white);
+    }
+}
+
+void StartingProtocol::updateRatingTable(){
+    QTableWidget * tableRating = ui->tableWidget_startReiting;
+    setRatingTableRowHiddenFalse();
+
+}
+void StartingProtocol::setRatingTableRowHiddenFalse(){ //makes all rows visible in rating table
+    for (int i = 0;i<ui->tableWidget_startReiting->rowCount();i++) {
+        ui->tableWidget_startReiting->setRowHidden(i,false);
     }
 }

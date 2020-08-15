@@ -108,8 +108,10 @@ private slots:
     void on_checkBox_personalOrTeam_clicked(bool checked);
 
     void on_lineEdit_findHuman_textChanged(const QString &arg1);
-
+    void updateRatingTable();
+    void setRatingTableRowHiddenFalse();
 private:
+
 };
 
 #endif // STARTINGPROTOCOL_H
