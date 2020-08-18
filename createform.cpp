@@ -31,7 +31,7 @@ void CreateForm::on_pushButton_AddPerson_clicked()
     checkButtonAddPerson = true;
     QString comboBoxPriority = "";
     if(ui->lineEdit_dst->text() == "" || ui->lineEdit_city->text() == ""||ui->lineEdit_school->text() == ""||ui->lineEdit_FIO_Create_Form->text() == ""
-            ||ui->lineEdit_Coach_CreateForm->text() == ""||ui->lineEdit_Name->text() == ""){
+            ||ui->lineEdit_Coach_CreateForm->text() == ""){
         QMessageBox::critical(this,"Помилка введення", "Заповніть необхідні поля!");
     }
     else
@@ -52,11 +52,18 @@ void CreateForm::on_pushButton_AddPerson_clicked()
             }
         }
         if((!ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)||(ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)){
-            if((ui->comboBox_meter->currentText().contains("4x") && ui->checkBox_personalOrTeam->isChecked()
+            if((ui->comboBox_meter->currentText().contains("4x")
+                && ui->checkBox_personalOrTeam->isChecked()
                 && ui->lineEdit_customTeam->text().length()!=0)
-                    || !ui->comboBox_meter->currentText().contains("4x")){
+               || (!ui->comboBox_meter->currentText().contains("4x")
+                   && ui->checkBox_personalOrTeam->isChecked()
+                   && ui->lineEdit_customTeam->text().length()!=0)
+               ||
+                  (!ui->comboBox_meter->currentText().contains("4x")
+                   && !ui->checkBox_personalOrTeam->isChecked()))
+            {
                 ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,0,  new QTableWidgetItem(ui->lineEdit_FIO_Create_Form->text().simplified() + " "+ ui->lineEdit_Name->text().simplified()));
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,0,  new QTableWidgetItem(ui->lineEdit_FIO_Create_Form->text().simplified()));
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,1,  new QTableWidgetItem(ui->spinBox_Year->text()));
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,2,  new QTableWidgetItem(ui->comboBox_rank->currentText()));
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,4,  new QTableWidgetItem(ui->lineEdit_dst->text()));
@@ -117,7 +124,7 @@ void CreateForm::on_pushButton_AddPerson_clicked()
                 QString previousPeopleDST = ui->tableWidget->item(rowOfTeam,4)->text();
                 QString previousPeopleSchoolAndTeam = ui->tableWidget->item(rowOfTeam,5)->text();
                 QString previousPeopleCoach = ui->tableWidget->item(rowOfTeam,8)->text();
-                ui->tableWidget->setItem(rowOfTeam,0,  new QTableWidgetItem(previousPeopleName+'\n'+ ui->lineEdit_FIO_Create_Form->text().simplified() + " "+ ui->lineEdit_Name->text().simplified()));
+                ui->tableWidget->setItem(rowOfTeam,0,  new QTableWidgetItem(previousPeopleName+'\n'+ ui->lineEdit_FIO_Create_Form->text().simplified()));
                 ui->tableWidget->setItem(rowOfTeam,1,  new QTableWidgetItem(previousPeopleYear+'\n'+ ui->spinBox_Year->text()));
                 ui->tableWidget->setItem(rowOfTeam,2,  new QTableWidgetItem(previousPeopleRank+'\n'+ui->comboBox_rank->currentText()));
                 ui->tableWidget->setItem(rowOfTeam,4,  new QTableWidgetItem(previousPeopleDST+'\n'+ui->lineEdit_dst->text()));

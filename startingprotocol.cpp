@@ -45,12 +45,12 @@ StartingProtocol::StartingProtocol(QWidget *parent) :
     ui->tableWidget_sortYears->verticalHeader()->setVisible(false);
     ui->pushButton_updateByYears_3->setVisible(false);
     ui->tableWidget_sortYears_3->verticalHeader()->setVisible(false);
-    ui->tableWidget_startSwim->setEditTriggers(0);
+//    ui->tableWidget_startSwim->setEditTriggers(0);
     ui->tableWidget_sortYears->setEditTriggers(0);
     ui->tableWidget_sortYears_4->verticalHeader()->setVisible(false);
     ui->tableWidget_sortYears_2->setEditTriggers(0);
     ui->tableWidget_sortYears_3->setEditTriggers(0);
-    ui->tableWidget_startSwim_2->setEditTriggers(0);
+//    ui->tableWidget_startSwim_2->setEditTriggers(0);
     ui->tableWidget_sortYears_4->setEditTriggers(0);
     ui->widget->hide();
     ui->pushButton_addParticipant->clicked(true);
@@ -209,9 +209,7 @@ void StartingProtocol::on_pushButton_openFile_clicked()
         }
     }
     ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-    for(int i=0;i<ui->tableWidget_startReiting->rowCount();i++){
-        ui->tableWidget_startReiting->item(i,0)->setText(QString::number(i+1));
-    }
+    setRowsNumbering(ui->tableWidget_startReiting);
 
     bool flag = false;
     bool flag1 = false;
@@ -275,32 +273,6 @@ void StartingProtocol::on_pushButton_openFile_clicked()
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
 
-void StartingProtocol::on_pushButton_sortReiting_clicked()
-{
-    int countNum=0;
-    for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-        ui->tableWidget_startReiting->setRowHidden(i,false);
-        ui->tableWidget_startReiting->item(i,0)->setText(QString::number(i+1));
-    }
-    if(ui->comboBox_category->currentText() != ""){
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-            if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
-                ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
-            }
-
-        }
-        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-
-            if(!ui->tableWidget_startReiting->isRowHidden(i)){
-                countNum++;
-                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
-            }
-        }
-    }
-    ui->pushButton_updateByYears_4->clicked(true);
-    ui->tableWidget_startReiting->resizeColumnsToContents();
-}
 
 
 //---------------------------createSwim--------------------------------
@@ -3261,12 +3233,7 @@ void StartingProtocol::on_pushButton_createNewReiting_clicked()
         afterPoitsT = ui->tableWidget_lastProtocol->item(i,9)->text();
         ui->tableWidget_lastProtocol->item(i,9)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=1;
-    for (int i = 0; i<ui->tableWidget_lastProtocol->rowCount();i++) {
-
-        ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTeams));
-        countOfTeams++;
-    }
+    setRowsNumbering(ui->tableWidget_lastProtocol);
 
     //    bool flag1 = false;
     //    ui->lineEdit_styleProtocol->clear();
@@ -3428,14 +3395,7 @@ void StartingProtocol::on_pushButton_deleteRow_clicked()
                 afterPoitsT = ui->tableWidget_startReiting->item(i,9)->text();
                 ui->tableWidget_startReiting->item(i,9)->setText(afterPoitsT.trimmed());
             }
-            int countOfTeams=0;
-            for (int i = 0; i<ui->tableWidget_startReiting->rowCount();i++) {
-                if(!ui->tableWidget_startReiting->isRowHidden(i)){
-                    countOfTeams++;
-                    ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countOfTeams));
-                }
-            }
-
+            setRowsNumbering(ui->tableWidget_startReiting);
             ui->tableWidget_startReiting->resizeColumnsToContents();
         }
         else
@@ -3458,13 +3418,7 @@ void StartingProtocol::on_pushButton_deleteRow_clicked()
             msgBox1.close();
         }
     }
-    int countOfTableProtocol=1;
-    for (int i = 0;i<ui->tableWidget_lastProtocol->rowCount();i++) {
-        if(!ui->tableWidget_lastProtocol->isRowHidden(i)){
-            ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTableProtocol));
-            countOfTableProtocol++;
-        }
-    }
+    setRowsNumbering(ui->tableWidget_lastProtocol);
     ui->comboBox_category->clear();
     ui->comboBox_category->addItem("",QVariant::Int);
     ui->comboBox_category->addItem("Ч",QVariant::Int);
@@ -3568,80 +3522,9 @@ void StartingProtocol::on_pushButton_addParticipant_clicked()
 void StartingProtocol::on_pushButton_sortByYears_clicked()
 {
 
-    //    ui->tableWidget_startReiting->verticalHeader()->hideSection(2);
-    //    ui->tableWidget_startReiting->sortByColumn(7);
     for (int i = 0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
         ui->tableWidget_lastProtocol->setRowHidden(i,false);
     }
-    //    if(ui->comboBox_firstYear->currentText() != ""
-    //            && ui->comboBox_secondYear->currentText()!=""
-    //            && ui->comboBox_thirdYear->currentText()!=""
-    //            && ui->comboBox_fourthYear->currentText()!=""
-    //            &&ui->comboBox_fifthYear->currentText()!=""){
-    //        for (int i = 0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
-    //            if(ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_firstYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_secondYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_thirdYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_fourthYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_fifthYear->currentText()){
-    //                ui->tableWidget_lastProtocol->verticalHeader()->hideSection(i);
-    //            }
-
-    //        }
-    //        ui->tableWidget_lastProtocol->sortByColumn(9,Qt::DescendingOrder);
-
-    //    }
-    //    else if(ui->comboBox_firstYear->currentText() != ""
-    //            && ui->comboBox_secondYear->currentText()!=""
-    //            && ui->comboBox_thirdYear->currentText()!=""
-    //            && ui->comboBox_fourthYear->currentText()!=""){
-    //        for (int i = 0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
-    //            if(ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_firstYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_secondYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_thirdYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_fourthYear->currentText()){
-    //                ui->tableWidget_lastProtocol->verticalHeader()->hideSection(i);
-    //            }
-
-    //        }
-    //        ui->tableWidget_lastProtocol->sortByColumn(9,Qt::DescendingOrder);
-
-    //    }
-    //    else if(ui->comboBox_firstYear->currentText() != ""
-    //            && ui->comboBox_secondYear->currentText()!=""
-    //            && ui->comboBox_thirdYear->currentText()!=""){
-    //        for (int i = 0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
-    //            if(ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_firstYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_secondYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_thirdYear->currentText()){
-    //                ui->tableWidget_lastProtocol->verticalHeader()->hideSection(i);
-    //            }
-
-    //        }
-    //        ui->tableWidget_lastProtocol->sortByColumn(9,Qt::DescendingOrder);
-
-    //    }
-    //    else if(ui->comboBox_firstYear->currentText() != "" && ui->comboBox_secondYear->currentText()!=""){
-    //        for (int i = 0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
-    //            if(ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_firstYear->currentText()
-    //                    && ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_secondYear->currentText()){
-    //                ui->tableWidget_lastProtocol->verticalHeader()->hideSection(i);
-    //            }
-
-    //        }
-    //        ui->tableWidget_lastProtocol->sortByColumn(9,Qt::DescendingOrder);
-    //    }
-    //    else if(ui->comboBox_firstYear->currentText() != ""){
-    //        for (int i = 0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
-    //            if(ui->tableWidget_lastProtocol->item(i,2)->text() != ui->comboBox_firstYear->currentText()){
-    //                ui->tableWidget_lastProtocol->verticalHeader()->hideSection(i);
-    //            }
-
-    //        }
-    //        ui->tableWidget_lastProtocol->sortByColumn(9,Qt::DescendingOrder);
-    //    }
-
-
     QString summ="";
     ui->tableWidget_lastProtocol->resizeRowsToContents();
     QString beforePointT="";
@@ -3660,21 +3543,7 @@ void StartingProtocol::on_pushButton_sortByYears_clicked()
         afterPoitsT = ui->tableWidget_lastProtocol->item(i,9)->text();
         ui->tableWidget_lastProtocol->item(i,9)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=1;
-    for (int i = 0; i<ui->tableWidget_lastProtocol->rowCount();i++) {
-
-        ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTeams));
-        countOfTeams++;
-    }
-
-    int countOfTableProtocol=1;
-    for (int i = 0;i<ui->tableWidget_lastProtocol->rowCount();i++) {
-        if(!ui->tableWidget_lastProtocol->isRowHidden(i)){
-
-            ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTableProtocol));
-            countOfTableProtocol++;
-        }
-    }
+    setRowsNumbering(ui->tableWidget_lastProtocol);
     ui->tableWidget_lastProtocol->resizeColumnsToContents();
 }
 int index=0;
@@ -3706,8 +3575,13 @@ void StartingProtocol::on_tableWidget_startSwim_itemPressed(QTableWidgetItem *it
     ui->lineEdit_inputTime->setFocus();
     ui->lineEdit_nameForTime->setText(item->text());
     QFont font;
+    font.setBold(false);
+    for(int i=0;i<ui->tableWidget_startSwim->rowCount();i++){
+        ui->tableWidget_startSwim->item(i,1)->setFont(font);
+    }
     font.setBold(true);
     ui->tableWidget_startSwim->item(item->row(),1)->setFont(font);
+    ui->tableWidget_startSwim->scrollToItem(item);
     index = item->row();
 }
 
@@ -4050,13 +3924,7 @@ void StartingProtocol::on_pushButton_goToManyFights_clicked()
             ui->comboBox_sortYear_3->addItem(ui->tableWidget_manyFights->item(i,2)->text().mid(0,4),QVariant::Int);
         flag2=false;
     }
-    int countOfTableMF = 0;
-    for (int i = 0;i<ui->tableWidget_manyFights->rowCount();i++) {
-        if(!ui->tableWidget_manyFights->isRowHidden(i)){
-            countOfTableMF++;
-            ui->tableWidget_manyFights->item(i,0)->setText(QString::number(countOfTableMF));
-        }
-    }
+    setRowsNumbering(ui->tableWidget_manyFights);
     ui->tableWidget_manyFights->resizeRowsToContents();
 
 
@@ -4102,13 +3970,7 @@ void StartingProtocol::on_pushButton_goToManyFights_clicked()
         afterPoitsT = ui->tableWidget_manyFights->item(i,9)->text();
         ui->tableWidget_manyFights->item(i,9)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=0;
-    for (int i = 0; i<ui->tableWidget_manyFights->rowCount();i++) {
-        countOfTeams++;
-        ui->tableWidget_manyFights->item(i,0)->setText(QString::number(countOfTeams));
-    }
-
-
+    setRowsNumbering(ui->tableWidget_manyFights);
     ui->tableWidget_manyFights->resizeColumnsToContents();
 }
 
@@ -4232,11 +4094,7 @@ void StartingProtocol::on_pushButton_goToTeams_clicked()
         afterPoitsT = ui->tableWidget_teams->item(i,10)->text();
         ui->tableWidget_teams->item(i,10)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=0;
-    for (int i = 0; i<ui->tableWidget_teams->rowCount();i++) {
-        countOfTeams++;
-        ui->tableWidget_teams->item(i,0)->setText(QString::number(countOfTeams));
-    }
+    setRowsNumbering(ui->tableWidget_teams);
 
 
     QString fr = "User\\Teams.tm";
@@ -4288,9 +4146,6 @@ void StartingProtocol::on_pushButton_openFileFights_clicked()
             ui->tableWidget_manyFights->setColumnCount(11);
 
             for (int i = countRow; i < row+countRow; ++i){
-                //                ui->tableWidget_manyFights->setItem(i,0, new QTableWidgetItem);
-                //                ui->tableWidget_manyFights->item(i,0)->setText(QString::number(i+1));
-
                 for (int j = 0; j < 11; j++)
                 {
 
@@ -4302,23 +4157,6 @@ void StartingProtocol::on_pushButton_openFileFights_clicked()
             ui->tableWidget_manyFights->verticalHeader()->hide();
         }
     }
-    //    bool flag1=false;
-
-    //    for (int i = 0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
-    //        for (int j = 0; j < ui->comboBox_firstYearM->count(); ++j) {
-    //            if(ui->comboBox_firstYearM->itemText(j)==ui->tableWidget_lastProtocol->item(i,2)->text()){
-    //                flag1=true;
-    //            }
-    //        }
-    //        if(!flag1){
-    //            ui->comboBox_firstYearM->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_secondYearM->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_thirdYearM->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_fourthYearM->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_fifthYearM->addItem(ui->tableWidget_lastProtocol->item(i,2)->text(),QVariant::Int);
-    //        }
-    //        flag1=false;
-    //    }
     bool flag2 = false;
 
     for (int i = 0; i < ui->tableWidget_manyFights->rowCount(); i++) {
@@ -4332,20 +4170,7 @@ void StartingProtocol::on_pushButton_openFileFights_clicked()
         flag2=false;
     }
 
-    int countOfTableProtocol = 0;
-    for (int i = 0;i<ui->tableWidget_manyFights->rowCount();i++) {
-        if(!ui->tableWidget_manyFights->isRowHidden(i)){
-            countOfTableProtocol++;
-            ui->tableWidget_manyFights->item(i,0)->setText(QString::number(countOfTableProtocol));
-        }
-    }
-    int countOfTableMF = 0;
-    for (int i = 0;i<ui->tableWidget_manyFights->rowCount();i++) {
-        if(!ui->tableWidget_manyFights->isRowHidden(i)){
-            countOfTableMF++;
-            ui->tableWidget_manyFights->item(i,0)->setText(QString::number(countOfTableMF));
-        }
-    }
+    setRowsNumbering(ui->tableWidget_manyFights);
     ui->tableWidget_manyFights->resizeRowsToContents();
 }
 
@@ -4502,20 +4327,7 @@ void StartingProtocol::on_pushButton_openFileProtocol_clicked()
         afterPoitsT = ui->tableWidget_lastProtocol->item(i,9)->text();
         ui->tableWidget_lastProtocol->item(i,9)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=1;
-    for (int i = 0; i<ui->tableWidget_lastProtocol->rowCount();i++) {
-
-        ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTeams));
-        countOfTeams++;
-    }
-    int countOfTableProtocol = 1;
-    for (int i = 0;i<ui->tableWidget_lastProtocol->rowCount();i++) {
-        if(!ui->tableWidget_lastProtocol->isRowHidden(i)){
-
-            ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTableProtocol));
-            countOfTableProtocol++;
-        }
-    }
+    setRowsNumbering(ui->tableWidget_lastProtocol);
 }
 
 void StartingProtocol::on_pushButton_cleanFightTable_clicked()
@@ -4562,36 +4374,6 @@ void StartingProtocol::on_comboBox_protocolFiles_currentIndexChanged(const QStri
     ui->pushButton_openFileProtocol->clicked(true);
 }
 
-//void StartingProtocol::on_checkBox_personalOrTeam_clicked(bool checked)
-//{
-
-//}
-
-//void StartingProtocol::on_comboBox_sortBy_currentIndexChanged(const QString &arg1)
-//{
-//    int countNum=0;
-//    for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-//        ui->tableWidget_startReiting->setRowHidden(i,false);
-//        ui->tableWidget_startReiting->item(i,0)->setText(QString::number(i+1));
-//    }
-//    if(ui->comboBox_sortBy->currentText() != ""){
-//        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-//            if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_sortBy->currentText())){
-//                ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
-//            }
-
-//        }
-//        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-//        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-
-//            if(!ui->tableWidget_startReiting->isRowHidden(i)){
-//                countNum++;
-//                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
-//            }
-//        }
-//    }
-//    ui->tableWidget_startReiting->resizeColumnsToContents();
-//}
 int index1=0;
 void StartingProtocol::on_pushButton_OK_timeInput_2_clicked()
 {
@@ -4770,15 +4552,7 @@ void StartingProtocol::on_pushButton_createNewReiting_2_clicked()
         flag4=false;
     }
 
-    int countOfTableProtocol = 0;
-    for (int i = 0;i<ui->tableWidget_lastProtocol_2->rowCount();i++) {
-        if(!ui->tableWidget_lastProtocol_2->isRowHidden(i)){
-            countOfTableProtocol++;
-            ui->tableWidget_lastProtocol_2->item(i,0)->setText(QString::number(countOfTableProtocol));
-        }
-    }
-
-
+    setRowsNumbering(ui->tableWidget_lastProtocol_2);
     QString fr = "Estafeta\\"+ui->lineEdit_styleProtocol_2->text()+".prot";
     QFile file(fr);
     if (file.open(QIODevice::WriteOnly))
@@ -4821,12 +4595,7 @@ void StartingProtocol::on_pushButton_createNewReiting_2_clicked()
         afterPoitsT = ui->tableWidget_lastProtocol_2->item(i,9)->text();
         ui->tableWidget_lastProtocol_2->item(i,9)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=0;
-    for (int i = 0; i<ui->tableWidget_lastProtocol_2->rowCount();i++) {
-        countOfTeams++;
-        ui->tableWidget_lastProtocol_2->item(i,0)->setText(QString::number(countOfTeams));
-    }
-
+    setRowsNumbering(ui->tableWidget_lastProtocol_2);
 
     ui->tableWidget_lastProtocol_2->resizeRowsToContents();
     ui->tableWidget_lastProtocol_2->resizeColumnsToContents();
@@ -6384,22 +6153,6 @@ void StartingProtocol::on_pushButton_openFileProtocol_2_clicked()
             ui->tableWidget_lastProtocol_2->verticalHeader()->hide();
         }
     }
-    //    bool flag1 = false;
-    //    for (int i = 0; i < ui->tableWidget_lastProtocol_2->rowCount(); ++i) {
-    //        for (int j = 0; j < ui->comboBox_firstYear_2->count(); ++j) {
-    //            if(ui->comboBox_firstYear_2->itemText(j)==ui->tableWidget_lastProtocol_2->item(i,2)->text()){
-    //                flag1=true;
-    //            }
-    //        }
-    //        if(!flag1){
-    //            ui->comboBox_firstYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_secondYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_thirdYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_fourthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-    //            ui->comboBox_fifthYear_2->addItem(ui->tableWidget_lastProtocol_2->item(i,2)->text(),QVariant::Int);
-    //        }
-    //        flag1=false;
-    //    }
 
     bool flag1 = false;
     bool flag2 = false;
@@ -6441,13 +6194,7 @@ void StartingProtocol::on_pushButton_openFileProtocol_2_clicked()
         flag4=false;
     }
 
-    int countOfTableProtocol = 0;
-    for (int i = 0;i<ui->tableWidget_lastProtocol_2->rowCount();i++) {
-        if(!ui->tableWidget_lastProtocol_2->isRowHidden(i)){
-            countOfTableProtocol++;
-            ui->tableWidget_lastProtocol_2->item(i,0)->setText(QString::number(countOfTableProtocol));
-        }
-    }
+    setRowsNumbering(ui->tableWidget_lastProtocol_2);
 
     ui->tableWidget_lastProtocol_2->resizeRowsToContents();
     ui->tableWidget_lastProtocol_2->resizeColumnsToContents();
@@ -6584,11 +6331,7 @@ void StartingProtocol::on_pushButton_goToTeams_2_clicked()
         afterPoitsT = ui->tableWidget_teams->item(i,10)->text();
         ui->tableWidget_teams->item(i,10)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=1;
-    for (int i = 0; i<ui->tableWidget_teams->rowCount();i++) {
-        ui->tableWidget_teams->item(i,0)->setText(QString::number(countOfTeams));
-        countOfTeams++;
-    }
+    setRowsNumbering(ui->tableWidget_teams);
 
 
     QString fr = "User\\Teams.tm";
@@ -6777,14 +6520,7 @@ void StartingProtocol::on_pushButton_updateByYears_2_clicked()
         }
         flag=false;
     }
-    int countRows=1;
-    for (int i=0; i < ui->tableWidget_lastProtocol_2->rowCount(); i++) {
-        if(!ui->tableWidget_lastProtocol_2->isRowHidden(i)){
-            ui->tableWidget_lastProtocol_2->item(i,0)->setText(QString::number(countRows));
-            countRows++;
-        }
-
-    }
+    setRowsNumbering(ui->tableWidget_lastProtocol_2);
     if(ui->tableWidget_sortYears_2->rowCount()==0){
         for (int i=0; i<ui->tableWidget_lastProtocol_2->rowCount();i++) {
             ui->tableWidget_lastProtocol_2->setRowHidden(i,false);
@@ -6907,21 +6643,7 @@ void StartingProtocol::on_pushButton_updateByYears_clicked()
         afterPoitsT = ui->tableWidget_lastProtocol->item(i,9)->text();
         ui->tableWidget_lastProtocol->item(i,9)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=1;
-    for (int i = 0; i<ui->tableWidget_lastProtocol->rowCount();i++) {
-
-        ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countOfTeams));
-        countOfTeams++;
-    }
-
-    int countRows=1;
-    for (int i=0; i < ui->tableWidget_lastProtocol->rowCount(); ++i) {
-        if(!ui->tableWidget_lastProtocol->isRowHidden(i)){
-            ui->tableWidget_lastProtocol->item(i,0)->setText(QString::number(countRows));
-            countRows++;
-        }
-    }
-
+    setRowsNumbering(ui->tableWidget_lastProtocol);
 }
 
 void StartingProtocol::on_pushButton_PK_2_clicked()
@@ -7017,20 +6739,7 @@ void StartingProtocol::on_pushButton_updateByYears_3_clicked()
         afterPoitsT = ui->tableWidget_manyFights->item(i,9)->text();
         ui->tableWidget_manyFights->item(i,9)->setText(afterPoitsT.trimmed());
     }
-    int countOfTeams=1;
-    for (int i = 0; i<ui->tableWidget_manyFights->rowCount();i++) {
-
-        ui->tableWidget_manyFights->item(i,0)->setText(QString::number(countOfTeams));
-        countOfTeams++;
-    }
-    int countRows=1;
-    for (int i=0; i < ui->tableWidget_manyFights->rowCount(); i++) {
-        if(!ui->tableWidget_manyFights->isRowHidden(i)){
-            ui->tableWidget_manyFights->item(i,0)->setText(QString::number(countRows));
-            countRows++;
-        }
-
-    }
+    setRowsNumbering(ui->tableWidget_manyFights);
     if(ui->tableWidget_sortYears_3->rowCount()==0){
         for (int i=0; i<ui->tableWidget_manyFights->rowCount();i++) {
             ui->tableWidget_manyFights->setRowHidden(i,false);
@@ -7134,29 +6843,12 @@ void StartingProtocol::on_pushButton_updateByYears_4_clicked()
 
     ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
 
-    int countOfTeams=1;
-    for (int i = 0; i<ui->tableWidget_startReiting->rowCount();i++) {
-
-        ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countOfTeams));
-        countOfTeams++;
-    }
-    int countRows=1;
-    for (int i=0; i < ui->tableWidget_startReiting->rowCount(); i++) {
-        if(!ui->tableWidget_startReiting->isRowHidden(i)){
-            ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countRows));
-            countRows++;
-        }
-
-    }
+    setRowsNumbering(ui->tableWidget_startReiting);
     if(ui->tableWidget_sortYears_4->rowCount()==0){
         for (int i=0; i<ui->tableWidget_startReiting->rowCount();i++) {
             ui->tableWidget_startReiting->setRowHidden(i,false);
         }
     }
-
-
-    int countNum=0;
-
     if(ui->comboBox_category->currentText() != ""){
         for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
             if(ui->tableWidget_startReiting->item(i,7)->text().contains("4x")){
@@ -7173,13 +6865,7 @@ void StartingProtocol::on_pushButton_updateByYears_4_clicked()
         }
 
         ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-
-            if(!ui->tableWidget_startReiting->isRowHidden(i)){
-                countNum++;
-                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
-            }
-        }
+        setRowsNumbering(ui->tableWidget_startReiting);
     }
     QString comboBox_category= ui->comboBox_category->currentText();
     ui->comboBox_category->setCurrentText(comboBox_category);
@@ -7190,7 +6876,7 @@ void StartingProtocol::on_pushButton_updateByYears_4_clicked()
 void StartingProtocol::on_pushButton_AddOnePerson_clicked()
 {
     if(ui->lineEdit_dst->text() == "" || ui->lineEdit_city->text() == ""||ui->lineEdit_school->text() == ""||ui->lineEdit_FIO_Create_Form->text() == ""
-            ||ui->lineEdit_Coach_CreateForm->text() == ""||ui->lineEdit_Name->text() == ""){
+            ||ui->lineEdit_Coach_CreateForm->text() == ""){
         QMessageBox::critical(this,"Помилка введення", "Заповніть необхідні поля!");
         ui->widget->setHidden(false);
     }
@@ -7213,12 +6899,17 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
         if((!ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)||(ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)){
             if((ui->comboBox_meter->currentText().contains("4x") && ui->checkBox_personalOrTeam->isChecked()
                 && ui->lineEdit_customTeam->text().length()!=0)
-                    || !ui->comboBox_meter->currentText().contains("4x")){
+                || (!ui->comboBox_meter->currentText().contains("4x")
+                            && ui->checkBox_personalOrTeam->isChecked()
+                            && ui->lineEdit_customTeam->text().length()!=0)
+                        ||
+                           (!ui->comboBox_meter->currentText().contains("4x")
+                            && !ui->checkBox_personalOrTeam->isChecked())){
                 /*Заносим данные в таблицу*/
                 ui->tableWidget_startReiting->insertRow(ui->tableWidget_startReiting->rowCount());
 
                 ui->tableWidget_startReiting->setItem(ui->tableWidget_startReiting->rowCount()-1,0,  new QTableWidgetItem(QString::number(ui->tableWidget_startReiting->rowCount())));
-                ui->tableWidget_startReiting->setItem(ui->tableWidget_startReiting->rowCount()-1,1,  new QTableWidgetItem(ui->lineEdit_FIO_Create_Form->text().simplified() + " "+ ui->lineEdit_Name->text().simplified()));
+                ui->tableWidget_startReiting->setItem(ui->tableWidget_startReiting->rowCount()-1,1,  new QTableWidgetItem(ui->lineEdit_FIO_Create_Form->text().simplified()));
                 ui->tableWidget_startReiting->setItem(ui->tableWidget_startReiting->rowCount()-1,2,  new QTableWidgetItem(ui->spinBox_Year->text()));
                 ui->tableWidget_startReiting->setItem(ui->tableWidget_startReiting->rowCount()-1,3,  new QTableWidgetItem(ui->comboBox_rank->currentText()));
                 ui->tableWidget_startReiting->setItem(ui->tableWidget_startReiting->rowCount()-1,5,  new QTableWidgetItem(ui->lineEdit_dst->text()));
@@ -7265,6 +6956,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
                 }
                 ui->tableWidget_startReiting->resizeRowsToContents();
                 ui->tableWidget_startReiting->resizeColumnsToContents();
+                ui->tableWidget_startReiting->scrollToBottom();
                 ui->widget->hide();
                 ui->pushButton_addParticipant->clicked(true);
             }
@@ -7281,7 +6973,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
                 QString previousPeopleDST = ui->tableWidget_startReiting->item(rowOfTeam,5)->text();
                 QString previousPeopleSchoolAndTeam = ui->tableWidget_startReiting->item(rowOfTeam,6)->text();
                 QString previousPeopleCoach = ui->tableWidget_startReiting->item(rowOfTeam,9)->text();
-                ui->tableWidget_startReiting->setItem(rowOfTeam,1,  new QTableWidgetItem(previousPeopleName+'\n'+ ui->lineEdit_FIO_Create_Form->text().simplified() + " "+ ui->lineEdit_Name->text().simplified()));
+                ui->tableWidget_startReiting->setItem(rowOfTeam,1,  new QTableWidgetItem(previousPeopleName+'\n'+ ui->lineEdit_FIO_Create_Form->text().simplified()));
                 ui->tableWidget_startReiting->setItem(rowOfTeam,2,  new QTableWidgetItem(previousPeopleYear+'\n'+ ui->spinBox_Year->text()));
                 ui->tableWidget_startReiting->setItem(rowOfTeam,3,  new QTableWidgetItem(previousPeopleRank+'\n'+ui->comboBox_rank->currentText()));
                 ui->tableWidget_startReiting->setItem(rowOfTeam,5,  new QTableWidgetItem(previousPeopleDST+'\n'+ui->lineEdit_dst->text()));
@@ -7306,6 +6998,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
 
                 ui->tableWidget_startReiting->resizeRowsToContents();
                 ui->tableWidget_startReiting->resizeColumnsToContents();
+                ui->tableWidget_startReiting->scrollToBottom();
                 ui->widget->hide();
                 ui->pushButton_addParticipant->clicked(true);
             }
@@ -7317,9 +7010,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
     }
     ui->tableWidget_startReiting->verticalHeader()->hide();
     ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-    for(int i=0;i<ui->tableWidget_startReiting->rowCount();i++){
-        ui->tableWidget_startReiting->item(i,0)->setText(QString::number(i+1));
-    }
+    setRowsNumbering(ui->tableWidget_startReiting);
 
     bool flag = false;
     for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
@@ -7460,15 +7151,8 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
                 }
             }
         }
-        int countNum = 0;
         ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-
-            if(!ui->tableWidget_startReiting->isRowHidden(i)){
-                countNum++;
-                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(countNum));
-            }
-        }
+        setRowsNumbering(ui->tableWidget_startReiting);
     }
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
@@ -7545,38 +7229,11 @@ void StartingProtocol::updateRatingTable(){
                     tableRating->setRowHidden(i,true);
                 }
                 isYearSuitable=false;
-
             }
         }
     }
     tableRating->sortByColumn(8,Qt::AscendingOrder);
     setRowsNumbering(tableRating);
-
-    //    if(   ui->comboBox_category->currentText() != ""
-    //          && ui->comboBox_category->currentText() != "Ч"
-    //          && ui->comboBox_category->currentText() != "Ж")
-    //    {
-    //        for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
-    //            if(ui->tableWidget_startReiting->item(i,7)->text().contains("4x")){
-    //                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())
-    //                        || !ui->comboBox_category->currentText().contains("4x")){
-    //                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
-    //                }
-    //            }
-    //            else {
-    //                if(!ui->tableWidget_startReiting->item(i,7)->text().contains(ui->comboBox_category->currentText())){
-    //                    ui->tableWidget_startReiting->verticalHeader()->hideSection(i);
-    //                }
-    //            }
-    //        }
-    //        ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
-    //        setRowsNumbering(tableRating);
-    //        ui->pushButton_updateByYears_4->clicked(true);
-    //    }
-    //    else if(ui->comboBox_category->currentText() == "Ч"
-    //            || ui->comboBox_category->currentText() == "Ж"){
-
-    //    }
 }
 void StartingProtocol::setTableRowsHidden(QTableWidget * table, bool setHidden){   //function makes all rows visible in table
     for (int i = 0;i < table->rowCount();i++) {

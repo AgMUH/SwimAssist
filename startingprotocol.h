@@ -24,7 +24,6 @@ signals:
 private slots:
     void on_pushButton_back_clicked();
     void on_pushButton_openFile_clicked();
-    void on_pushButton_sortReiting_clicked();
     void on_pushButton_createSwim_clicked();
     void on_pushButton_copyTableSwim_clicked();
     void on_pushButton_copyTableReitings_clicked();
@@ -41,16 +40,6 @@ private slots:
     void on_pushButton_DK_clicked();
     void on_comboBox_swimPool_currentTextChanged(const QString &arg1);
     void on_pushButton_saveStartSwim_clicked();
-//    void on_comboBox_firstYear_currentTextChanged(const QString &arg1);
-//    void on_comboBox_secondYear_currentTextChanged(const QString &arg1);
-//    void on_comboBox_thirdYear_currentTextChanged(const QString &arg1);
-//    void on_comboBox_fourthYear_currentTextChanged(const QString &arg1);
-//    void on_comboBox_fifthYear_currentTextChanged(const QString &arg1);
-//    void on_pushButton_sortByYearsM_clicked();
-//    void on_comboBox_firstYearM_currentTextChanged(const QString &arg1);
-//    void on_comboBox_secondYearM_curtTexrentTextChanged(const QString &arg1);
-//    void on_comboBox_thirdYearM_currentChanged(const QString &arg1);
-//    void on_comboBox_fourthYearM_currentTextChanged(const QString &arg1);
     void on_pushButton_clicked();
     void on_pushButton_copyManyFights_clicked();
     void on_pushButton_clearTableTeams_clicked();
