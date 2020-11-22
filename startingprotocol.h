@@ -100,6 +100,8 @@ private slots:
     void updateRatingTable();
     void setTableRowsHidden(QTableWidget * table,bool isHidden);
     void setRowsNumbering(QTableWidget * table);
+    void on_comboBox_sortBagatoborstvoGender_currentIndexChanged(const QString &arg1);
+
 private:
 
 };

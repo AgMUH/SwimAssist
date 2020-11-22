@@ -45,12 +45,12 @@ StartingProtocol::StartingProtocol(QWidget *parent) :
     ui->tableWidget_sortYears->verticalHeader()->setVisible(false);
     ui->pushButton_updateByYears_3->setVisible(false);
     ui->tableWidget_sortYears_3->verticalHeader()->setVisible(false);
-//    ui->tableWidget_startSwim->setEditTriggers(0);
+    //    ui->tableWidget_startSwim->setEditTriggers(0);
     ui->tableWidget_sortYears->setEditTriggers(0);
     ui->tableWidget_sortYears_4->verticalHeader()->setVisible(false);
     ui->tableWidget_sortYears_2->setEditTriggers(0);
     ui->tableWidget_sortYears_3->setEditTriggers(0);
-//    ui->tableWidget_startSwim_2->setEditTriggers(0);
+    //    ui->tableWidget_startSwim_2->setEditTriggers(0);
     ui->tableWidget_sortYears_4->setEditTriggers(0);
     ui->widget->hide();
     ui->pushButton_addParticipant->clicked(true);
@@ -99,38 +99,41 @@ void StartingProtocol::on_pushButton_back_clicked()
 static int count1 = 0;
 void StartingProtocol::on_pushButton_openFile_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
+    QStringList fileName = QFileDialog::getOpenFileNames(this,
                                                     tr("Open"), "",
                                                     tr("(*.zay);;All Files (*)"));
     if (fileName.isEmpty())
         return;
     else
     {
-        QFile file(fileName);
-        if (file.open(QIODevice::ReadOnly))
-        {
-            QDataStream stream(&file);
-            qint32 row, column;
-            stream >> row >> column;
-            int countRow = ui->tableWidget_startReiting->rowCount();
-            ui->tableWidget_startReiting->setRowCount(row+countRow);
-            ui->tableWidget_startReiting->setColumnCount(column+1);
+        for(int i=0;i<fileName.count();i++){
+            QFile file(fileName[i]);
+            if (file.open(QIODevice::ReadOnly))
+            {
+                QDataStream stream(&file);
+                qint32 row, column;
+                stream >> row >> column;
+                int countRow = ui->tableWidget_startReiting->rowCount();
+                ui->tableWidget_startReiting->setRowCount(row+countRow);
+                ui->tableWidget_startReiting->setColumnCount(column+1);
 
-            for (int i = countRow; i < row+countRow; ++i){
-                count1++;
-                ui->tableWidget_startReiting->setItem(i,0, new QTableWidgetItem);
-                ui->tableWidget_startReiting->item(i,0)->setText(QString::number(count1));
+                for (int i = countRow; i < row+countRow; ++i){
+                    count1++;
+                    ui->tableWidget_startReiting->setItem(i,0, new QTableWidgetItem);
+                    ui->tableWidget_startReiting->item(i,0)->setText(QString::number(count1));
 
-                for (int j = 1; j < 10; j++)
-                {
+                    for (int j = 1; j < 10; j++)
+                    {
 
-                    ui->tableWidget_startReiting->setItem(i,j,new QTableWidgetItem);
-                    ui->tableWidget_startReiting->item(i,j)->read(stream);
+                        ui->tableWidget_startReiting->setItem(i,j,new QTableWidgetItem);
+                        ui->tableWidget_startReiting->item(i,j)->read(stream);
+                    }
                 }
+                file.close();
+                ui->tableWidget_startReiting->verticalHeader()->hide();
             }
-            file.close();
-            ui->tableWidget_startReiting->verticalHeader()->hide();
         }
+
         bool flag = false;
 
         for (int i = 0; i < ui->tableWidget_startReiting->rowCount(); ++i) {
@@ -262,10 +265,7 @@ void StartingProtocol::on_pushButton_openFile_clicked()
             flag4=false;
         }
     }
-
-
-
-
+    ui->comboBox_sortYear_4->model()->sort(0, Qt::AscendingOrder);
 
 
 
@@ -410,7 +410,9 @@ void StartingProtocol::on_pushButton_createSwim_clicked()
                         }
                         else tableRow--;
                     }
-                    if(j==10 || j==9){continue;}
+                    if(j==10 || j==9){
+                        ui->tableWidget_startSwim->item(i,j)->setText("-");
+                        continue;}
                     else if(j==8){
                         ui->tableWidget_startSwim->item(i,8)->setFont(font);
                     }
@@ -2344,11 +2346,13 @@ void StartingProtocol::on_pushButton_update_clicked()
         }
         else{
             ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::red);
+            ui->tableWidget_startSwim->item(i,9)->setText("-");
+            ui->tableWidget_startSwim->item(i,10)->setText("-");
         }
         if(ui->tableWidget_startSwim->item(i,7)->text().contains("(ПК)")){
             ui->tableWidget_startSwim->item(i,10)->setText("~");
         }
-        if(ui->tableWidget_startSwim->item(i,8)->text()=="ДК"){
+        if(ui->tableWidget_startSwim->item(i,8)->text().contains("ДК")){
             ui->tableWidget_startSwim->item(i,8)->setBackgroundColor(Qt::white);
             ui->tableWidget_startSwim->item(i,9)->setText("-");
             ui->tableWidget_startSwim->item(i,10)->setText("-");
@@ -3094,7 +3098,11 @@ void StartingProtocol::on_pushButton_createNewReiting_clicked()
         ui->tableWidget_lastProtocol->clearContents();
         ui->tableWidget_lastProtocol->setRowCount(0);
     }
-    ui->lineEdit_styleProtocol->setText(ui->comboBox_category->currentText());
+    int indDistance = ui->tableWidget_startSwim->item(1,7)->text().indexOf("(");
+    if(ui->tableWidget_startSwim->item(1,7)->text().contains("(")){
+        ui->lineEdit_styleProtocol->setText(ui->tableWidget_startSwim->item(1,7)->text().mid(0,indDistance));
+    }
+    else ui->lineEdit_styleProtocol->setText(ui->tableWidget_startSwim->item(1,7)->text());
 
 
     ui->comboBox_protocolFiles->setCurrentText("User/"+ui->lineEdit_styleProtocol->text()+".prot");
@@ -3106,7 +3114,8 @@ void StartingProtocol::on_pushButton_createNewReiting_clicked()
     for (int i=0;i<ui->tableWidget_startSwim->rowCount();i++) {
         if(ui->tableWidget_startSwim->item(i,8)->text()!=""
                 && ui->tableWidget_startSwim->item(i,9)->text()!=""
-                && ui->tableWidget_startSwim->item(i,10)->text()!=""){
+                && ui->tableWidget_startSwim->item(i,10)->text()!=""
+                && ui->tableWidget_startSwim->item(i,8)->text()!=":."){
             countUpdatedPeople++;
             flagRepeatPerson = true;
         }
@@ -3122,6 +3131,7 @@ void StartingProtocol::on_pushButton_createNewReiting_clicked()
         }
         flagRepeatPerson=false;
     }
+
     int previousCountPeople = ui->tableWidget_lastProtocol->rowCount();
     int tableRow = ui->tableWidget_lastProtocol->rowCount();
     QString beforePoints="";
@@ -3158,7 +3168,7 @@ void StartingProtocol::on_pushButton_createNewReiting_clicked()
         tableColumn = -1;
         flag= false;
     }
-
+    ui->tableWidget_lastProtocol->sortByColumn(7,Qt::AscendingOrder);
     ui->tableWidget_lastProtocol->sortByColumn(9,Qt::DescendingOrder);
     QString afterPoits="";
     for (int i=0;i<ui->tableWidget_lastProtocol->rowCount();i++) {
@@ -3234,7 +3244,7 @@ void StartingProtocol::on_pushButton_createNewReiting_clicked()
         ui->tableWidget_lastProtocol->item(i,9)->setText(afterPoitsT.trimmed());
     }
     setRowsNumbering(ui->tableWidget_lastProtocol);
-
+    ui->comboBox_sortYear->model()->sort(Qt::AscendingOrder);
     //    bool flag1 = false;
     //    ui->lineEdit_styleProtocol->clear();
     //    ui->lineEdit_styleProtocol->setText(ui->comboBox_category->currentText());
@@ -3637,8 +3647,9 @@ void StartingProtocol::on_pushButton_DK_clicked()
 {
     if(ui->tab_startingProtocol->isVisible()){
         ui->tableWidget_startSwim->item(index,8)->setText("ДК");
-        ui->tableWidget_startSwim->item(index,9)->setText("-");
-        ui->tableWidget_startSwim->item(index,10)->setText("-");
+        ui->tableWidget_startSwim->item(index,8)->setBackgroundColor(Qt::white);
+        //        ui->tableWidget_startSwim->item(index,9)->setText("-");
+        //        ui->tableWidget_startSwim->item(index,10)->setText("-");
         QFont font;
         font.setBold(false);
         ui->tableWidget_startSwim->item(index,1)->setFont(font);
@@ -3971,6 +3982,7 @@ void StartingProtocol::on_pushButton_goToManyFights_clicked()
         ui->tableWidget_manyFights->item(i,9)->setText(afterPoitsT.trimmed());
     }
     setRowsNumbering(ui->tableWidget_manyFights);
+    ui->comboBox_sortYear_3->model()->sort(Qt::AscendingOrder);
     ui->tableWidget_manyFights->resizeColumnsToContents();
 }
 
@@ -4128,34 +4140,64 @@ void StartingProtocol::on_pushButton_goToTeams_clicked()
 
 void StartingProtocol::on_pushButton_openFileFights_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
+    QStringList fileName = QFileDialog::getOpenFileNames(this,
                                                     tr("Open"), "",
-                                                    tr("(*.mf);;All Files (*)"));
+                                                    tr("(*prot);;(*.mf);;All Files (*)"));
     if (fileName.isEmpty())
         return;
     else
     {
-        QFile file(fileName);
-        if (file.open(QIODevice::ReadOnly))
-        {
-            QDataStream stream(&file);
-            qint32 row, column;
-            stream >> row >> column;
-            int countRow = ui->tableWidget_manyFights->rowCount();
-            ui->tableWidget_manyFights->setRowCount(row+countRow);
-            ui->tableWidget_manyFights->setColumnCount(11);
-
-            for (int i = countRow; i < row+countRow; ++i){
-                for (int j = 0; j < 11; j++)
+        for(int i=0; i<fileName.count();i++){
+            QFile file(fileName[i]);
+            if(fileName[i].contains(".mf")){
+                if (file.open(QIODevice::ReadOnly))
                 {
+                    QDataStream stream(&file);
+                    qint32 row, column;
+                    stream >> row >> column;
+                    int countRow = ui->tableWidget_manyFights->rowCount();
+                    ui->tableWidget_manyFights->setRowCount(row+countRow);
+                    ui->tableWidget_manyFights->setColumnCount(11);
 
-                    ui->tableWidget_manyFights->setItem(i,j,new QTableWidgetItem);
-                    ui->tableWidget_manyFights->item(i,j)->read(stream);
+                    for (int i = countRow; i < row+countRow; ++i){
+                        for (int j = 0; j < 11; j++)
+                        {
+
+                            ui->tableWidget_manyFights->setItem(i,j,new QTableWidgetItem);
+                            ui->tableWidget_manyFights->item(i,j)->read(stream);
+                        }
+                    }
+                    file.close();
+                    ui->tableWidget_manyFights->verticalHeader()->hide();
                 }
             }
-            file.close();
-            ui->tableWidget_manyFights->verticalHeader()->hide();
+            else if(fileName[i].contains(".prot")){
+                ui->tableWidget_lastProtocol->clearContents();
+                ui->tableWidget_lastProtocol->setRowCount(0);
+                if (file.open(QIODevice::ReadOnly))
+                {
+                    QDataStream stream(&file);
+                    qint32 row, column;
+                    stream >> row >> column;
+                    int countRow = ui->tableWidget_lastProtocol->rowCount();
+                    ui->tableWidget_lastProtocol->setRowCount(row+countRow);
+                    ui->tableWidget_lastProtocol->setColumnCount(column);
+
+                    for (int i = countRow; i < row+countRow; ++i){
+                        for (int j = 0; j < 11; j++)
+                        {
+
+                            ui->tableWidget_lastProtocol->setItem(i,j,new QTableWidgetItem);
+                            ui->tableWidget_lastProtocol->item(i,j)->read(stream);
+                        }
+                    }
+                    file.close();
+                    ui->tableWidget_lastProtocol->verticalHeader()->hide();
+                }
+                ui->pushButton_goToManyFights->clicked(true);
+            }
         }
+        ui->pushButton_openFileProtocol->clicked(true);
     }
     bool flag2 = false;
 
@@ -4169,7 +4211,7 @@ void StartingProtocol::on_pushButton_openFileFights_clicked()
             ui->comboBox_sortYear_3->addItem(ui->tableWidget_manyFights->item(i,2)->text().mid(0,4),QVariant::Int);
         flag2=false;
     }
-
+    ui->comboBox_sortYear_3->model()->sort(Qt::AscendingOrder);
     setRowsNumbering(ui->tableWidget_manyFights);
     ui->tableWidget_manyFights->resizeRowsToContents();
 }
@@ -4327,6 +4369,7 @@ void StartingProtocol::on_pushButton_openFileProtocol_clicked()
         afterPoitsT = ui->tableWidget_lastProtocol->item(i,9)->text();
         ui->tableWidget_lastProtocol->item(i,9)->setText(afterPoitsT.trimmed());
     }
+    ui->comboBox_sortYear->model()->sort(Qt::AscendingOrder);
     setRowsNumbering(ui->tableWidget_lastProtocol);
 }
 
@@ -4505,7 +4548,7 @@ void StartingProtocol::on_pushButton_createNewReiting_2_clicked()
         tableColumn = -1;
         flag= false;
     }
-
+    ui->tableWidget_lastProtocol_2->sortByColumn(7,Qt::AscendingOrder);
     ui->tableWidget_lastProtocol_2->sortByColumn(9,Qt::DescendingOrder);
     QString afterPoits="";
     for (int i=0;i<ui->tableWidget_lastProtocol_2->rowCount();i++) {
@@ -4551,7 +4594,7 @@ void StartingProtocol::on_pushButton_createNewReiting_2_clicked()
         flag3=false;
         flag4=false;
     }
-
+    ui->comboBox_sortYear_2->model()->sort(Qt::AscendingOrder);
     setRowsNumbering(ui->tableWidget_lastProtocol_2);
     QString fr = "Estafeta\\"+ui->lineEdit_styleProtocol_2->text()+".prot";
     QFile file(fr);
@@ -6195,7 +6238,7 @@ void StartingProtocol::on_pushButton_openFileProtocol_2_clicked()
     }
 
     setRowsNumbering(ui->tableWidget_lastProtocol_2);
-
+    ui->comboBox_sortYear_2->model()->sort(Qt::AscendingOrder);
     ui->tableWidget_lastProtocol_2->resizeRowsToContents();
     ui->tableWidget_lastProtocol_2->resizeColumnsToContents();
 }
@@ -6498,6 +6541,7 @@ void StartingProtocol::on_pushButton_removeSortYear_2_clicked()
     else {
         QMessageBox::warning(this,"Помилка","Рік "+ ui->comboBox_sortYear_2->currentText() +" відсутній у таблиці!");
     }
+    ui->comboBox_sortYear_2->model()->sort(Qt::AscendingOrder);
     ui->pushButton_updateByYears_2->clicked(true);
 }
 
@@ -6558,6 +6602,7 @@ void StartingProtocol::on_pushButton_addSortYear_clicked()
         ui->tableWidget_sortYears->item(ui->tableWidget_sortYears->rowCount()-1,0)->setText(ui->comboBox_sortYear->currentText());
         ui->tableWidget_sortYears->item(ui->tableWidget_sortYears->rowCount()-1,0)->setTextAlignment(Qt::AlignHCenter);
     }
+
     ui->pushButton_updateByYears->clicked(true);
 }
 
@@ -6678,6 +6723,7 @@ void StartingProtocol::on_pushButton_addSortYear_3_clicked()
         ui->tableWidget_sortYears_3->item(ui->tableWidget_sortYears_3->rowCount()-1,0)->setText(ui->comboBox_sortYear_3->currentText());
         ui->tableWidget_sortYears_3->item(ui->tableWidget_sortYears_3->rowCount()-1,0)->setTextAlignment(Qt::AlignHCenter);
     }
+    ui->comboBox_sortYear_3->model()->sort(Qt::AscendingOrder);
     ui->pushButton_updateByYears_3->clicked(true);
 
 }
@@ -6777,6 +6823,7 @@ void StartingProtocol::on_pushButton_addSortYear_4_clicked()
         ui->tableWidget_sortYears_4->item(ui->tableWidget_sortYears_4->rowCount()-1,0)->setText(ui->comboBox_sortYear_4->currentText());
         ui->tableWidget_sortYears_4->item(ui->tableWidget_sortYears_4->rowCount()-1,0)->setTextAlignment(Qt::AlignHCenter);
     }
+    ui->comboBox_sortYear_4->model()->sort(Qt::AscendingOrder);
     updateRatingTable();
 }
 
@@ -6899,12 +6946,12 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
         if((!ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)||(ui->comboBox_meter->currentText().contains("4x") && !teamContainsed)){
             if((ui->comboBox_meter->currentText().contains("4x") && ui->checkBox_personalOrTeam->isChecked()
                 && ui->lineEdit_customTeam->text().length()!=0)
-                || (!ui->comboBox_meter->currentText().contains("4x")
-                            && ui->checkBox_personalOrTeam->isChecked()
-                            && ui->lineEdit_customTeam->text().length()!=0)
-                        ||
-                           (!ui->comboBox_meter->currentText().contains("4x")
-                            && !ui->checkBox_personalOrTeam->isChecked())){
+                    || (!ui->comboBox_meter->currentText().contains("4x")
+                        && ui->checkBox_personalOrTeam->isChecked()
+                        && ui->lineEdit_customTeam->text().length()!=0)
+                    ||
+                    (!ui->comboBox_meter->currentText().contains("4x")
+                     && !ui->checkBox_personalOrTeam->isChecked())){
                 /*Заносим данные в таблицу*/
                 ui->tableWidget_startReiting->insertRow(ui->tableWidget_startReiting->rowCount());
 
@@ -7154,6 +7201,7 @@ void StartingProtocol::on_pushButton_AddOnePerson_clicked()
         ui->tableWidget_startReiting->sortByColumn(8,Qt::AscendingOrder);
         setRowsNumbering(ui->tableWidget_startReiting);
     }
+    ui->comboBox_sortYear_4->model()->sort(0, Qt::AscendingOrder);
     ui->tableWidget_startReiting->resizeColumnsToContents();
 }
 
@@ -7247,5 +7295,31 @@ void StartingProtocol::setRowsNumbering(QTableWidget * table){ // function assin
             rowNumbering++;
             table->item(i,0)->setText(QString::number(rowNumbering));
         }
+    }
+}
+
+void StartingProtocol::on_comboBox_sortBagatoborstvoGender_currentIndexChanged(const QString &arg1)
+{
+    QString sortStr = ui->comboBox_sortBagatoborstvoGender->currentText();
+    if(sortStr==""){
+        setTableRowsHidden(ui->tableWidget_manyFights, false);
+    }
+    else if(sortStr=="Ч"){
+        setTableRowsHidden(ui->tableWidget_manyFights, false);
+        for (int i=0; i<ui->tableWidget_manyFights->rowCount();i++) {
+            if(!ui->tableWidget_manyFights->item(i,6)->text().contains("Ч")){
+                ui->tableWidget_manyFights->setRowHidden(i,true);
+            }
+        }
+        setRowsNumbering(ui->tableWidget_manyFights);
+    }
+    else if(sortStr=="Ж"){
+        setTableRowsHidden(ui->tableWidget_manyFights, false);
+        for (int i=0; i<ui->tableWidget_manyFights->rowCount();i++) {
+            if(!ui->tableWidget_manyFights->item(i,6)->text().contains("Ж")){
+                ui->tableWidget_manyFights->setRowHidden(i,true);
+            }
+        }
+        setRowsNumbering(ui->tableWidget_manyFights);
     }
 }
